@@ -1,22 +1,26 @@
 const app = Vue.createApp({
     data() {
         return {
-            classStyleInput: '',
-            togglePragraph: false,
+            inputClass: '',
+            togglePragraph: true,
+            backgroundColor: ''
         }
     },
     computed: {
-        styleMe() {
-            return this.classStyleInput;
-        },
-    },
-    methods: {
-        showHide() {
-
-            this.togglePragraph = !this.togglePragraph;
-
+        setClasses() {
+            return {
+                user1: this.inputClass === 'user1',
+                user2: this.inputClass === 'user2',
+                visible: this.togglePragraph,
+                hidden: !this.togglePragraph,
+            }
         }
     },
-});
+    methods: {
+        setToggleParagraph() {
+            this.togglePragraph = !this.togglePragraph;
+        }
+    },
+})
 
 app.mount("#assignment");
