@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 Table Example</title>
+  <!-- Include Vue 3 -->
+  <script src="https://unpkg.com/vue@next" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+    <div id="app">
+        <table>
+          <thead>
+            <tr>
+              <th>Fruit</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(fruit, index) in fruits" :key="index">
+              <td>
+                <select v-model="selectedFruits[index]" @change="updateQuantity(index)">
+                  <option v-for="option in fruitOptions" :value="option.value">{{ option.label }}</option>
+                </select>
+              </td>
+              <td>
+                <select v-model="selectedQuantities[index]">
+                  <option v-for="n in fruitQuantities[index]" :value="n">{{ n }}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+</body>
+</html>
