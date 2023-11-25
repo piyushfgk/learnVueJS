@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS 3 Example</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+
+<div id="app">
+    <table>
+        <thead>
+            <tr>
+                <!-- ... Other columns ... -->
+                <th>MIS/CSVR Numbers</th>
+                <th>Serial No.</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item, index) in items" :key="index">
+                <!-- ... Other columns ... -->
+                <td>
+                    <div class="col-sm-2 flex-row flex-item-vcenter">
+                        <span class="badge">{{ item.quantity }}</span>&nbsp;
+                        <div class="form-group">
+                            <select v-model="selectedMISCSVREntry[index]" class="form-control" @change="updateSerialList(index)">
+                                <option value="">--choose--</option>
+                                <option v-for="(entry, i) in item.entries" :key="i" :value="entry.value">{{ entry.label }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <select v-model="selectedSerial[index]" class="form-control">
+                        <option value="" selected>--choose--</option>
+                        <option v-for="number in serialNumbers[index]" :key="number.value" :value="number.value">{{ number.label }}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" :value="usedSerialNumbers[index]" />
+                    <section class="item_serial_selected">
+                        <ul>
+                            <li v-for="(serial, i) in usedSerialNumbers[index]" :key="i">{{ serial }}</li>
+                        </ul>
+                    </section>
+                    <button @click="resetItemSerial(index)" class="reset-item_serial_selected btn btn-xs btn-default">Reset</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                items: [
+                    { quantity: 4, entries: [
+                        { label: 'MIS : 220601039  Qty:(2.0000)', value: '220601039|2.0000' },
+                        { label: 'MIS : 220601304  Qty:(20.0000)', value: '220601304|20.0000' },
+                        { label: 'MIS : 220601404  Qty:(15.0000)', value: '220601404|15.0000' },
+                        { label: 'MIS : 220601676  Qty:(26.0000)', value: '220601676|26.0000' }
+                    ] },
+                    // Add more items as needed
+                ],
+                selectedMISCSVREntry: [],
+                selectedSerial: [],
+                usedSerialNumbers: []
+            };
+        },
+        methods: {
+            updateSerialList(index) {
+                const selectedOption = this.selectedMISCSVREntry[index];
+                const selectedOptionParts = selectedOption.split('|');
+                const mis_csvr_number = selectedOptionParts[0];
+                const quantity = parseInt(selectedOptionParts[1]);
+
+                // Generate the list of serial numbers
+                const serialList = [];
+                for (let i = 1; i <= quantity; i++) {
+                    const optionValue = mis_csvr_number + '|' + i;
+                    if (!this.usedSerialNumbers[index].includes(optionValue)) {
+                        serialList.push({ label: i, value: optionValue });
+                    }
+                }
+
+                // Update the Serial No. column
+                this.$set(this.serialNumbers, index, serialList);
+            },
+            resetItemSerial(index) {
+                // Reset the Serial No. list and hidden input
+                this.$set(this.selectedSerial, index, '');
+                this.$set(this.usedSerialNumbers, index, []);
+            }
+        }
+    });
+
+    app.mount('#app');
+</script>
+
+</body>
+</html>

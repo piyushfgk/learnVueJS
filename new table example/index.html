@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Vue Example</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        table, td, th {
+            border: 1px solid;
+            padding: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 3px 5px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>MIS Csvr No</th>
+                    <th>Serials</th>
+                    <th>Choosen Serial</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td>
+                        <select name="mis_csvr[101]" id="mis_csvr_101" :key="mis_csvr101">
+                            <option value="">--choose--</option>
+                            <option value="301|20">Item 301 Qty 20</option>
+                            <option value="302|10">Item 302 Qty 10</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="serials[101]" id="serials_101" :key="serials101">
+                            <option value="">--choose--</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="choosen_serials[101]" value="" :key="choosen_serials101">
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td>
+                        <select name="mis_csvr[102]" id="mis_csvr_102" :key="mis_csvr102">
+                            <option value="">--choose--</option>
+                            <option value="401|5">Item 401 Qty 5</option>
+                            <option value="402|15">Item 402 Qty 15</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="serials[102]" id="serials_102" :key="serials102">
+                            <option value="">--choose--</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="choosen_serials[102]" value="" :key="choosen_serials102">
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td>
+                        <select name="mis_csvr[103]" id="mis_csvr_103" :key="mis_csvr103">
+                            <option value="">--choose--</option>
+                            <option value="501|2">Item 501 Qty 2</option>
+                            <option value="502|1">Item 502 Qty 1</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="serials[103]" id="serials_103" :key="serials103">
+                            <option value="">--choose--</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="choosen_serials[103]" value="" :key="choosen_serials103">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>
