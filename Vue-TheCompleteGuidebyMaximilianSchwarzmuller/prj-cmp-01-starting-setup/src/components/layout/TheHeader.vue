@@ -1,12 +1,18 @@
 <template>
+  <div>
     <header>
         <h1>{{ title }}</h1>
     </header>
+    <the-resources></the-resources>
+  </div>
 </template>
 
 
 <script>
+import TheResources from '../learning-resources/TheResources.vue';
+
 export default {
+    components: { TheResources },
     props: [ 'title' ]
 }
 </script>
