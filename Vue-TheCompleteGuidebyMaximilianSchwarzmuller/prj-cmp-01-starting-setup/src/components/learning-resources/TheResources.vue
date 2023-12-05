@@ -1,19 +1,24 @@
 <template>
   <div>
     <base-card>
-      <base-button @click="setSelectedTab('stored-resources')" :mode="storedResButtonMode"
+      <base-button
+        @click="setSelectedTab('stored-resources')"
+        :mode="storedResButtonMode"
         >Stored Resources</base-button
       >
-      <base-button @click="setSelectedTab('add-resource')" :mode="addResButtonMode"
+      <base-button
+        @click="setSelectedTab('add-resource')"
+        :mode="addResButtonMode"
         >Add Resource</base-button
       >
     </base-card>
-    <component :is="selectedTab"></component>
+    <keep-alive>
+      <component :is="selectedTab"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-
 function getMaxIdPlusOne(resources) {
   // Use Array.reduce to find the maximum id
   const maxId = resources.reduce((max, resource) => {
@@ -50,17 +55,17 @@ export default {
   },
   computed: {
     storedResButtonMode() {
-      return this.selectedTab === 'stored-resources' ? null : 'flat'
+      return this.selectedTab === 'stored-resources' ? null : 'flat';
     },
     addResButtonMode() {
-      return this.selectedTab === 'add-resource' ? null : 'flat'
-    }
+      return this.selectedTab === 'add-resource' ? null : 'flat';
+    },
   },
   provide() {
     return {
-        resources: this.storedResources,
-        addResource: this.addResource
-    }
+      resources: this.storedResources,
+      addResource: this.addResource,
+    };
   },
   methods: {
     setSelectedTab(tab) {
@@ -71,12 +76,12 @@ export default {
         id: getMaxIdPlusOne(this.storedResources),
         title: title,
         description: description,
-        link: url
-      }
+        link: url,
+      };
 
-      this.storedResources.unshift(newResource)
-      this.selectedTab = 'stored-resources'
-    }
+      this.storedResources.unshift(newResource);
+      this.selectedTab = 'stored-resources';
+    },
   },
 };
 </script>

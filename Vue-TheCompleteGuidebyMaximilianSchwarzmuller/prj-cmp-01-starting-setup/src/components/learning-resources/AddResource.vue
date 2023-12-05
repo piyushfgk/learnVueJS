@@ -30,6 +30,11 @@ export default {
             const enteredUrl = this.$refs.linkInput.value
 
             this.addResource(enteredTitle, enteredDescription, enteredUrl)
+
+            // Reset input after successful input
+            this.$refs.titleInput.value = '';
+            this.$refs.descriptionInput.value = '';
+            this.$refs.linkInput.value = '';
         }
     },
 }
