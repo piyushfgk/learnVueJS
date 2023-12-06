@@ -1,7 +1,6 @@
 <template>
   <div>
     <the-header :title="title"></the-header>
-    <the-dialog></the-dialog>
   </div>
 </template>
 
