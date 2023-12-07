@@ -42,60 +42,61 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr :key="'101'">
                     <td><strong>1</strong></td>
                     <td>
-                        <select name="mis_csvr[101]" id="mis_csvr_101" :key="mis_csvr101">
+                        <select v-model="selectedMisCsvr['101']" @change="updateSerialList('101')" name="mis_csvr[101]" id="mis_csvr_101">
                             <option value="">--choose--</option>
-                            <option value="301|20">Item 301 Qty 20</option>
+                            <option value="301|20" :value="">Item 301 Qty 20</option>
                             <option value="302|10">Item 302 Qty 10</option>
                         </select>
                     </td>
                     <td>
-                        <select name="serials[101]" id="serials_101" :key="serials101">
+                        <select name="serials[101]" id="serials_101" v-model="selectedQuantities['101']">
                             <option value="">--choose--</option>
+                            <option v-for="n in serialNos['101']" :value="n">{{ n }}</option>
                         </select>
                     </td>
                     <td>
-                        <input type="hidden" name="choosen_serials[101]" value="" :key="choosen_serials101">
+                        <input type="hidden" name="choosen_serials[101]" value="">
                     </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td><strong>2</strong></td>
                     <td>
-                        <select name="mis_csvr[102]" id="mis_csvr_102" :key="mis_csvr102">
+                        <select v-model="selectedMisCsvr" @change="updateSerialList($event, rowIndex)" name="mis_csvr[102]" id="mis_csvr_102">
                             <option value="">--choose--</option>
                             <option value="401|5">Item 401 Qty 5</option>
                             <option value="402|15">Item 402 Qty 15</option>
                         </select>
                     </td>
                     <td>
-                        <select name="serials[102]" id="serials_102" :key="serials102">
+                        <select name="serials[102]" id="serials_102">
                             <option value="">--choose--</option>
                         </select>
                     </td>
                     <td>
-                        <input type="hidden" name="choosen_serials[102]" value="" :key="choosen_serials102">
+                        <input type="hidden" name="choosen_serials[102]" value="">
                     </td>
                 </tr>
                 <tr>
                     <td><strong>3</strong></td>
                     <td>
-                        <select name="mis_csvr[103]" id="mis_csvr_103" :key="mis_csvr103">
+                        <select v-model="selectedMisCsvr" @change="updateSerialList($event, rowIndex)" name="mis_csvr[103]" id="mis_csvr_103">
                             <option value="">--choose--</option>
                             <option value="501|2">Item 501 Qty 2</option>
                             <option value="502|1">Item 502 Qty 1</option>
                         </select>
                     </td>
                     <td>
-                        <select name="serials[103]" id="serials_103" :key="serials103">
+                        <select name="serials[103]" id="serials_103">
                             <option value="">--choose--</option>
                         </select>
                     </td>
                     <td>
-                        <input type="hidden" name="choosen_serials[103]" value="" :key="choosen_serials103">
+                        <input type="hidden" name="choosen_serials[103]" value="">
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
