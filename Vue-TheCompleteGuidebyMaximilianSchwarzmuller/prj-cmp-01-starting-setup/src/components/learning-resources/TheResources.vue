@@ -65,6 +65,7 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      deleteResource: this.deleteResource
     };
   },
   methods: {
@@ -81,6 +82,18 @@ export default {
 
       this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
+    },
+    deleteResource(id) {
+      // Find the index of the resource with the specified id
+      const indexToDelete = this.storedResources.findIndex(
+        (resource) => resource.id === id
+      );
+
+      // Check if the resource with the given id was found
+      if (indexToDelete !== -1) {
+        // Use splice to remove the item at the found index
+        this.storedResources.splice(indexToDelete, 1);
+      }
     },
   },
 };
