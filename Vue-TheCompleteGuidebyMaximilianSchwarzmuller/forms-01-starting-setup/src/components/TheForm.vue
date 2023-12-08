@@ -1,12 +1,22 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div
+      class="form-control"
+      :class="{ invalid: validity.userName === 'invalid' }"
+    >
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" v-model="userName" />
+      <input
+        id="user-name"
+        name="user-name"
+        type="text"
+        v-model.trim="userName"
+        @blur="checkValidity"
+      />
+      <p v-if="validity.userName === 'invalid'">Please enter a valid name!</p>
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
-      <input id="age" name="age" type="number" v-model="age"/>
+      <input id="age" name="age" type="number" v-model="age" />
     </div>
     <div class="form-control">
       <label for="referrer">How did you hear about us?</label>
@@ -52,20 +62,43 @@
     <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
-        <input id="how-video" name="how" type="radio" value="video" v-model="learningMethod"/>
+        <input
+          id="how-video"
+          name="how"
+          type="radio"
+          value="video"
+          v-model="learningMethod"
+        />
         <label for="how-video">Video Courses</label>
       </div>
       <div>
-        <input id="how-blogs" name="how" type="radio" value="blog" v-model="learningMethod" />
+        <input
+          id="how-blogs"
+          name="how"
+          type="radio"
+          value="blog"
+          v-model="learningMethod"
+        />
         <label for="how-blogs">Blogs</label>
       </div>
       <div>
-        <input id="how-other" name="how" type="radio" value="other" v-model="learningMethod" />
+        <input
+          id="how-other"
+          name="how"
+          type="radio"
+          value="other"
+          v-model="learningMethod"
+        />
         <label for="how-other">Other</label>
       </div>
     </div>
     <div class="form-control">
-      <input type="checkbox" name="accept_terms" id="accept_terms" v-model="acceptTerms"/>
+      <input
+        type="checkbox"
+        name="accept_terms"
+        id="accept_terms"
+        v-model="acceptTerms"
+      />
       <label for="accept_terms">Accept terms and conditions</label>
     </div>
     <div>
@@ -84,27 +117,34 @@ export default {
       interests: [],
       learningMethod: '',
       acceptTerms: false,
+      validity: {
+        userName: 'pending',
+      },
     };
   },
   methods: {
     submitForm() {
       console.log({
-          username: this.userName,
-          age: this.age,
-          refferer: this.refferer,
-          interests: this.interests,
-          learningmethod: this.learningMethod,
-          acceptterms: this.acceptTerms
-        }
-      )
+        username: this.userName,
+        age: this.age,
+        refferer: this.refferer,
+        interests: this.interests,
+        learningmethod: this.learningMethod,
+        acceptterms: this.acceptTerms,
+      });
+
+      this.checkValidity()
 
       //reset form
-      this.userName = ''
-      this.age = null
-      this.refferer = ''
-      this.interests = []
-      this.learningMethod = ''
-      this.acceptTerms = false
+      this.userName = '';
+      this.age = null;
+      this.refferer = '';
+      this.interests = [];
+      this.learningMethod = '';
+      this.acceptTerms = false;
+    },
+    checkValidity() {
+      this.validity.userName = this.userName === '' ? 'invalid' : 'valid';
     },
   },
 };
@@ -122,6 +162,15 @@ form {
 
 .form-control {
   margin: 0.5rem 0;
+}
+
+.form-control.invalid input {
+  border: 1px solid red;
+}
+
+.form-control.invalid label,
+.form-control.invalid p {
+  color: red;
 }
 
 label {
