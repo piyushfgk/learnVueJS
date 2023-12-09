@@ -93,6 +93,10 @@
       </div>
     </div>
     <div class="form-control">
+      <label for="">Ratings</label>
+      <rating-control></rating-control>
+    </div>
+    <div class="form-control">
       <input
         type="checkbox"
         name="accept_terms"
@@ -108,7 +112,10 @@
 </template>
 
 <script>
+import RatingControl from './RatingControl.vue';
+
 export default {
+  components: { RatingControl },
   data() {
     return {
       userName: '',
@@ -133,7 +140,7 @@ export default {
         acceptterms: this.acceptTerms,
       });
 
-      this.checkValidity()
+      this.checkValidity();
 
       //reset form
       this.userName = '';
@@ -165,7 +172,7 @@ form {
 }
 
 .form-control.invalid input {
-  border: 1px solid red;
+  border-color: red;
 }
 
 .form-control.invalid label,
