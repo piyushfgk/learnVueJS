@@ -1,12 +1,12 @@
 <template>
   <ul>
-    <li :class="{ active: activeButton === 'poor' }">
+    <li :class="{ active: modelValue === 'poor' }">
       <button type="button" @click="setActiveButton('poor')">Poor</button>
     </li>
-    <li :class="{ active: activeButton === 'average' }">
+    <li :class="{ active: modelValue === 'average' }">
       <button type="button" @click="setActiveButton('average')">Average</button>
     </li>
-    <li :class="{ active: activeButton === 'great' }">
+    <li :class="{ active: modelValue === 'great' }">
       <button type="button" @click="setActiveButton('great')">Great</button>
     </li>
   </ul>
@@ -21,11 +21,11 @@ export default {
   //     activeButton: null,
   //   };
   // },
-  computed: {
-    activeButton() {
-      return this.modelValue;
-    }
-  },
+  // computed: {
+  //   activeButton() {
+  //     return this.modelValue;
+  //   }
+  // },
   methods: {
     setActiveButton(option) {
       // this.activeButton = option;
