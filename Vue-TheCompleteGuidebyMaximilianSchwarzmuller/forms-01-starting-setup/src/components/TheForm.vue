@@ -93,8 +93,8 @@
       </div>
     </div>
     <div class="form-control">
-      <label for="">Ratings</label>
-      <rating-control></rating-control>
+      <label>Ratings</label>
+      <rating-control v-model="rating"></rating-control>
     </div>
     <div class="form-control">
       <input
@@ -124,6 +124,7 @@ export default {
       interests: [],
       learningMethod: '',
       acceptTerms: false,
+      rating: null,
       validity: {
         userName: 'pending',
       },
@@ -138,6 +139,7 @@ export default {
         interests: this.interests,
         learningmethod: this.learningMethod,
         acceptterms: this.acceptTerms,
+        rating: this.rating
       });
 
       this.checkValidity();
@@ -149,6 +151,7 @@ export default {
       this.interests = [];
       this.learningMethod = '';
       this.acceptTerms = false;
+      this.rating = null;
     },
     checkValidity() {
       this.validity.userName = this.userName === '' ? 'invalid' : 'valid';

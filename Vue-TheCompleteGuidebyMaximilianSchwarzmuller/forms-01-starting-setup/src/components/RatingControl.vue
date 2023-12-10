@@ -14,14 +14,22 @@
 
 <script>
 export default {
-  data() {
-    return {
-      activeButton: null,
-    };
+  props: ['modelValue'],
+  emits: ['update:modelValue'],
+  // data() {
+  //   return {
+  //     activeButton: null,
+  //   };
+  // },
+  computed: {
+    activeButton() {
+      return this.modelValue;
+    }
   },
   methods: {
     setActiveButton(option) {
-      this.activeButton = option;
+      // this.activeButton = option;
+      this.$emit('update:modelValue', option);
     },
   },
 };
