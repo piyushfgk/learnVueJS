@@ -41,6 +41,7 @@
         <p v-if="invalidInput">
           One or more input fields are invalid. Please check your provided data.
         </p>
+        <p :class="{ error: error !== null }" v-else-if="error !== null">{{ error }}</p>
         <div>
           <base-button>Submit</base-button>
         </div>
@@ -56,11 +57,14 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
+      error: null
     };
   },
   // emits: ['survey-submit'],
   methods: {
     submitSurvey() {
+      this.error = null;
+
       if (this.enteredName === '' || !this.chosenRating) {
         this.invalidInput = true;
         return;
@@ -84,7 +88,9 @@ export default {
             rating: this.chosenRating,
           }),
         }
-      );
+      ).catch((error) => {
+        this.error = 'Error submitting experience, please try again later. ' + error.message;
+      });
 
       this.enteredName = '';
       this.chosenRating = null;

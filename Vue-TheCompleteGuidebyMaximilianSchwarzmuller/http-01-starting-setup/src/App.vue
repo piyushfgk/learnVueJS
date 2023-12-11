@@ -43,4 +43,8 @@ html {
 body {
   margin: 0;
 }
+
+.error {
+  color: red;
+}
 </style>
