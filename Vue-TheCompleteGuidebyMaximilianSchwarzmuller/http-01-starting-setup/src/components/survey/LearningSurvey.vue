@@ -88,7 +88,11 @@ export default {
             rating: this.chosenRating,
           }),
         }
-      ).catch((error) => {
+      ).then(response => {
+        if(response.ok === false) {
+          throw new Error('Could not save data!');
+        }
+      }).catch((error) => {
         this.error = 'Error submitting experience, please try again later. ' + error.message;
       });
 
