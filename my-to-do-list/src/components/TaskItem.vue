@@ -1,10 +1,24 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-1" data-toggle="tooltip" data-placement="left" title="Toggle task"><input type="checkbox" /></div>
-      <div class="col-sm-10" :class="{'is-completed': isCompleted === true }"><h4>{{ title }}</h4></div>
+      <div
+        class="col-sm-1"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Toggle task"
+      >
+        <input type="checkbox" :checked="isCompleted" />
+      </div>
+      <div class="col-sm-10" :class="{ 'is-completed': isCompleted === true }">
+        <h4>{{ title }}</h4>
+      </div>
       <div class="col-sm-1">
-            <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="right" title="Delete">
+        <button
+          class="btn btn-danger btn-sm"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Delete"
+        >
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
       </div>
@@ -14,8 +28,8 @@
 
 <script>
 export default {
-    props: ['title', 'isCompleted'],
-}
+  props: ["title", "isCompleted"],
+};
 </script>
 
 <style scoped>
@@ -32,13 +46,13 @@ h4 {
   margin: 0;
 }
 
-input[type='checkbox']{
-   cursor: pointer;
+input[type="checkbox"] {
+  cursor: pointer;
 }
 
-.is-completed{
-    text-decoration: line-through;
-    color: gray;
-    font-style: italic;
+.is-completed {
+  text-decoration: line-through;
+  color: gray;
+  font-style: italic;
 }
 </style>

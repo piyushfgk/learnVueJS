@@ -1,22 +1,37 @@
 <template>
-  <the-header>
-    <search-task></search-task>
-  </the-header>
-  <section class="add-task">
-    <div class="container">
-      <add-task></add-task>
-    </div>
-  </section>
-  <section class="list-task">
-    <div class="container-fluid">
-      <div class="page-header">
-        <h1><small>List tasks</small></h1>
+  <div>
+    <the-header>
+      <search-task></search-task>
+    </the-header>
+    <section class="add-task">
+      <div class="container">
+        <add-task></add-task>
       </div>
-    </div>
-    <div class="container">
-      <task-list></task-list>
-    </div>
-  </section>
+    </section>
+    <section class="list-task">
+      <div class="container">
+        <div class="page-header">
+          <h3 class="text-danger">
+            <span
+              class="glyphicon glyphicon-hourglass"
+              aria-hidden="true"
+            ></span>
+            Pending
+          </h3>
+        </div>
+        <task-list taskType="pending"></task-list>
+      </div>
+      <div class="container">
+        <div class="page-header">
+          <h3 class="text-primary">
+            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+            Completed
+          </h3>
+        </div>
+        <task-list taskType="completed"></task-list>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -34,7 +49,7 @@ export default {
 section.add-task {
   margin-top: 3rem;
 }
-.page-header{
+.page-header {
   border-bottom: 2px solid #265a88;
 }
 </style>

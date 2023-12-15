@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <task-item
-        v-for="task in storedTasks"
+        v-for="task in getStoredTasks(taskType)"
         :key="task.id"
         :id="task.id"
         :title="task.title"
@@ -17,6 +17,7 @@ import TaskItem from "./TaskItem.vue";
 
 export default {
   components: { TaskItem },
+  props: ["taskType"],
   data() {
     return {
       storedTasks: [
@@ -40,6 +41,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    getStoredTasks(taskType) {
+      if (taskType === "pending")
+        return this.storedTasks.filter((task) => task.isCompleted === false);
+      if (taskType === "completed")
+        return this.storedTasks.filter((task) => task.isCompleted === true);
+    },
   },
 };
 </script>

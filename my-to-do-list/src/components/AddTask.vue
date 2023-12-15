@@ -27,10 +27,10 @@
 
 <style scoped>
 .panel {
-   background: rgb(63, 61, 61);
+  background: rgba(62, 62, 62, 0.608);
 }
 
-form{
-    margin-top:1.8rem
+form {
+  margin-top: 1.8rem;
 }
 </style>
