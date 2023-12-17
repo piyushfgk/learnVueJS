@@ -6,7 +6,7 @@
         class="form-control"
         placeholder="Search tasks..."
         v-model.trim="searchTerm"
-        @keyup="this.$emit('filtered-tasks', searchTerm)"
+        @input="onFilteredTasks"
       />
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">
@@ -25,6 +25,11 @@ export default {
     return {
       searchTerm: "",
     };
+  },
+  methods: {
+    onFilteredTasks(){
+      this.$emit('filtered-tasks', this.searchTerm);
+    }
   },
 };
 </script>

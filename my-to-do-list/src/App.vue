@@ -3,34 +3,15 @@
     <the-header>
       <search-task @filtered-tasks="onFilteredTasks"></search-task>
     </the-header>
+    <div class="container" v-if="searchTerm !== ''">
+      <p class="text-danger text-right"><em>You searched for: <strong>{{ searchTerm }}</strong></em></p>
+    </div>
     <section class="add-task">
       <div class="container">
         <add-task></add-task>
       </div>
     </section>
-    <section class="list-task">
-      <div class="container" v-if="hasPending">
-        <div class="page-header">
-          <h3 class="text-danger">
-            <span
-              class="glyphicon glyphicon-hourglass"
-              aria-hidden="true"
-            ></span>
-            Pending
-          </h3>
-        </div>
-        <task-list taskType="pending" :tasks="storedTasks"></task-list>
-      </div>
-      <div class="container" v-if="hasCompleted">
-        <div class="page-header">
-          <h3 class="text-primary">
-            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-            Completed
-          </h3>
-        </div>
-        <task-list taskType="completed" :tasks="storedTasks"></task-list>
-      </div>
-    </section>
+    <task-list :tasks="filteredTasks"></task-list>
   </div>
 </template>
 
@@ -43,15 +24,11 @@ import TaskList from "./components/TaskList.vue";
 export default {
   components: { TheHeader, SearchTask, AddTask, TaskList },
   computed: {
-    hasCompleted() {
-      return this.storedTasks.some(task => task.isCompleted);
-    },
-    hasPending() {
-      return this.storedTasks.some(task => !task.isCompleted);
-    }
+
   },
   data() {
     return {
+      filteredTasks: [],
       storedTasks: [
         {
           id: 1,
@@ -72,32 +49,21 @@ export default {
           createdAt: "2023-04-11 11:55:23",
         },
       ],
+      searchTerm: ''
     }
+  },
+  mounted() {
+    this.filteredTasks = this.storedTasks;
   },
   methods: {
     onFilteredTasks(searchTerm) {
-      if(searchTerm != '') this.storedTasks = this.storedTasks.filter((task) =>
-        task.title.toLowerCase().includes(searchTerm.toLowerCase())
-      ); else this.storedTasks = [
-        {
-          id: 1,
-          title: "Take groceries from market",
-          isCompleted: false,
-          createdAt: "2023-04-11 11:50:23",
-        },
-        {
-          id: 2,
-          title: "Study books for self",
-          isCompleted: true,
-          createdAt: "2023-04-11 11:51:23",
-        },
-        {
-          id: 3,
-          title: "Do meditation in the morning",
-          isCompleted: false,
-          createdAt: "2023-04-11 11:55:23",
-        },
-      ];
+      this.searchTerm = searchTerm;
+
+      if(searchTerm === '') {
+        this.filteredTasks = this.storedTasks;
+      } else {
+        this.filteredTasks = this.storedTasks.filter(task => task.title.toLowerCase().includes(searchTerm.toLowerCase()));
+      }
     }
   },
 };
