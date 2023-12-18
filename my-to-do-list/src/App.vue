@@ -4,7 +4,11 @@
       <search-task @filtered-tasks="onFilteredTasks"></search-task>
     </the-header>
     <div class="container" v-if="searchTerm !== ''">
-      <p class="text-danger text-right"><em>You searched for: <strong>{{ searchTerm }}</strong></em></p>
+      <p class="text-danger text-right">
+        <em
+          >You searched for: <strong>{{ searchTerm }}</strong></em
+        >
+      </p>
     </div>
     <section class="add-task">
       <div class="container">
@@ -16,6 +20,16 @@
 </template>
 
 <script>
+function getMaxIdPlusOne(resources) {
+  // Use Array.reduce to find the maximum id
+  const maxId = resources.reduce((max, resource) => {
+    return resource.id > max ? resource.id : max;
+  }, 0);
+
+  // Return maxId + 1
+  return maxId + 1;
+}
+
 import TheHeader from "./components/layout/TheHeader.vue";
 import SearchTask from "./components/SearchTask.vue";
 import AddTask from "./components/AddTask.vue";
@@ -24,7 +38,26 @@ import TaskList from "./components/TaskList.vue";
 export default {
   components: { TheHeader, SearchTask, AddTask, TaskList },
   computed: {
+    formattedDateTime() {
+      // Format the date using currentDate or any other reactive variable
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; // Months are zero-indexed
 
+      const day = date.getDate();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+
+      const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+        .toString()
+        .padStart(2, "0")}`;
+      const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+      return formattedDate + " " + formattedTime;
+    },
   },
   data() {
     return {
@@ -49,21 +82,41 @@ export default {
           createdAt: "2023-04-11 11:55:23",
         },
       ],
-      searchTerm: ''
-    }
+      searchTerm: "",
+    };
   },
   mounted() {
     this.filteredTasks = this.storedTasks;
+  },
+  provide() {
+    return {
+      addTask: this.addTask,
+    };
   },
   methods: {
     onFilteredTasks(searchTerm) {
       this.searchTerm = searchTerm;
 
-      if(searchTerm === '') {
+      if (searchTerm === "") {
         this.filteredTasks = this.storedTasks;
       } else {
-        this.filteredTasks = this.storedTasks.filter(task => task.title.toLowerCase().includes(searchTerm.toLowerCase()));
+        this.filteredTasks = this.storedTasks.filter((task) =>
+          task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
       }
+    },
+    addTask(taskTitle) {
+      const newTask = {
+        id: getMaxIdPlusOne(this.storedTasks),
+        title: taskTitle,
+        isCompleted: false,
+        createdAt: this.formattedDateTime,
+      };
+
+      this.storedTasks.unshift(newTask);
+    },
+    deleteTask() {
+
     }
   },
 };

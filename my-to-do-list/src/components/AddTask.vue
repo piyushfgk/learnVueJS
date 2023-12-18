@@ -1,15 +1,17 @@
 <template>
   <div class="panel panel-default">
     <div class="panel-body">
-      <form>
+      <form @submit.prevent="submitForm">
         <div class="row">
           <div class="col-sm-10">
-            <div class="form-group">
+            <div :class="feedbackInputTitle">
+              <label v-if="invalidInput" class="control-label" for="exampleInputName2">{{ errorTitle }}</label>
               <input
                 type="text"
                 class="form-control input-lg"
                 id="exampleInputName2"
                 placeholder="Enter task detail"
+                ref="taskInput"
               />
             </div>
           </div>
@@ -24,6 +26,45 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  inject: ["addTask"],
+  data() {
+    return {
+      invalidInput: false,
+      errorTitle: "",
+    };
+  },
+  computed: {
+    feedbackInputTitle() {
+      return this.invalidInput === true
+        ? "form-group has-error has-feedback"
+        : "form-group";
+    },
+  },
+  methods: {
+    submitForm() {
+      const taskInput = this.$refs.taskInput.value;
+
+      if (this.formValidation(taskInput) === false) return;
+
+      this.addTask(taskInput);
+      this.$refs.taskInput.value = "";
+    },
+    formValidation(title) {
+      const validLength = 2;
+
+      if (title.length <= validLength) {
+        this.invalidInput = true;
+        this.errorTitle = `Task should be greater than ${validLength} characters`;
+      }
+
+      return !this.invalidInput;
+    },
+  },
+};
+</script>
 
 <style scoped>
 .panel {

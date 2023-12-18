@@ -18,6 +18,7 @@
           data-toggle="tooltip"
           data-placement="right"
           title="Delete"
+          @click="this.$emit('delete-task', id)"
         >
           <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
@@ -28,7 +29,7 @@
 
 <script>
 export default {
-  props: ["title", "isCompleted"],
+  props: ["id", "title", "isCompleted"],
 };
 </script>
 
