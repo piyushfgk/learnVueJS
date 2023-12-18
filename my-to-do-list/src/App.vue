@@ -77,6 +77,7 @@ export default {
       isTasksAvailable: null,
       errorTaskTitle: '',
       errorTaskMessage: '',
+      isLoading: false,
       storedTasks: [
         {
           id: 1,
@@ -101,6 +102,7 @@ export default {
     };
   },
   mounted() {
+    this.loadTaskList();
     this.filteredTasks = this.storedTasks;
   },
   provide() {
@@ -111,6 +113,43 @@ export default {
     };
   },
   methods: {
+    loadTaskList() {
+      this.isLoading = true;
+      this.isTasksAvailable = true;
+      this.errorTaskTitle =  '';
+      this.errorTaskMessage = '';
+      fetch(
+        'https://vue-my-do-to-list-default-rtdb.firebaseio.com/my-do-list.json'
+      )
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong. Could not fetch data!");
+          }
+        })
+        .then((data) => {
+          this.isLoading = false;
+          const tasks = [];
+
+          for (const id in data) {
+            tasks.push({
+              id: id,
+              title: data[id].title,
+              isCompleted: data[id].isCompleted,
+              createdAt: data[id].createdAt,
+            });
+          }
+
+          this.storedTasks = tasks;
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          this.isTasksAvailable = false;
+          this.errorTaskTitle =  'Their is some problem';
+          this.errorTaskMessage = error.message;
+        });
+    },
     onFilteredTasks(searchTerm) {
       this.searchTerm = searchTerm;
 
