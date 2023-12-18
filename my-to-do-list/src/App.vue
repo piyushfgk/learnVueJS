@@ -1,22 +1,21 @@
 <template>
-  <div>
-    <the-header>
-      <search-task @filtered-tasks="onFilteredTasks"></search-task>
-    </the-header>
-    <div class="container" v-if="searchTerm !== ''">
-      <p class="text-danger text-right">
-        <em
-          >You searched for: <strong>{{ searchTerm }}</strong></em
-        >
-      </p>
-    </div>
-    <section class="add-task">
-      <div class="container">
-        <add-task></add-task>
-      </div>
-    </section>
-    <task-list :tasks="filteredTasks"></task-list>
+  <the-message v-if="isTasksAvailable === false" :title="errorTaskTitle" :message="errorTaskMessage" @close="confirmMessage"></the-message>
+  <the-header>
+    <search-task @filtered-tasks="onFilteredTasks"></search-task>
+  </the-header>
+  <div class="container" v-if="searchTerm !== ''">
+    <p class="text-danger text-right">
+      <em
+        >You searched for: <strong>{{ searchTerm }}</strong></em
+      >
+    </p>
   </div>
+  <section class="add-task">
+    <div class="container">
+      <add-task></add-task>
+    </div>
+  </section>
+  <task-list :tasks="filteredTasks"></task-list>
 </template>
 
 <script>
@@ -37,6 +36,19 @@ import TaskList from "./components/TaskList.vue";
 
 export default {
   components: { TheHeader, SearchTask, AddTask, TaskList },
+  watch: {
+    "storedTasks.length"(newLength) {
+      if(newLength < 1) {
+        this.errorTaskTitle = "No existing tasks found!";
+        this.errorTaskMessage = "<h2>Add some tasks</h2><p>Enter a task and press enter to add one.</p>";
+        this.isTasksAvailable = false;
+      } else {
+        this.errorTaskTitle = "";
+        this.errorTaskMessage = "";
+        this.isTasksAvailable = true;
+      }
+    }
+  },
   computed: {
     formattedDateTime() {
       // Format the date using currentDate or any other reactive variable
@@ -62,6 +74,9 @@ export default {
   data() {
     return {
       filteredTasks: [],
+      isTasksAvailable: null,
+      errorTaskTitle: '',
+      errorTaskMessage: '',
       storedTasks: [
         {
           id: 1,
@@ -91,6 +106,8 @@ export default {
   provide() {
     return {
       addTask: this.addTask,
+      deleteTask: this.deleteTask,
+      setTaskStatus: this.setTaskStatus,
     };
   },
   methods: {
@@ -115,8 +132,24 @@ export default {
 
       this.storedTasks.unshift(newTask);
     },
-    deleteTask() {
+    deleteTask(id) {
+      this.storedTasks = this.storedTasks.filter((task) => task.id !== id);
 
+      this.filteredTasks = this.storedTasks;
+    },
+    setTaskStatus(id, status) {
+      // Find the index of the task in storedTasks
+      const taskIndex = this.storedTasks.findIndex((task) => task.id === id);
+
+      if (taskIndex !== -1) {
+        // Set isCompleted to true or false based on the current value
+        this.storedTasks[taskIndex].isCompleted = status;
+      }
+
+      this.filteredTasks = this.storedTasks;
+    },
+    confirmMessage() {
+      this.isTasksAvailable = true;
     }
   },
 };

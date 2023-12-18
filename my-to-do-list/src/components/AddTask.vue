@@ -47,7 +47,7 @@ export default {
     submitForm() {
       const taskInput = this.$refs.taskInput.value;
 
-      if (this.formValidation(taskInput) === false) return;
+      if (this.formValidation(taskInput) === true) return;
 
       this.addTask(taskInput);
       this.$refs.taskInput.value = "";
@@ -58,9 +58,16 @@ export default {
       if (title.length <= validLength) {
         this.invalidInput = true;
         this.errorTitle = `Task should be greater than ${validLength} characters`;
+
+        this.invalidInput = true;
+
+      } else {
+
+        this.invalidInput = false;
+
       }
 
-      return !this.invalidInput;
+      return this.invalidInput;
     },
   },
 };

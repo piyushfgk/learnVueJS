@@ -1,6 +1,6 @@
 <template>
   <section class="list-task">
-    <div class="container" v-if="hasPending">
+    <div class="container pending-tasks--list" v-if="hasPending">
       <div class="page-header">
         <h3 class="text-danger">
           <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
@@ -15,11 +15,14 @@
             :id="task.id"
             :title="task.title"
             :isCompleted="task.isCompleted"
+            :addedOn="task.createdAt"
+            @deleteTask="deleteTaskId"
+            @setTaskStatus="setTaskStatusId"
           ></task-item>
         </div>
       </div>
     </div>
-    <div class="container" v-if="hasCompleted">
+    <div class="container completed-tasks--list" v-if="hasCompleted">
       <div class="page-header">
         <h3 class="text-primary">
           <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
@@ -34,6 +37,9 @@
             :id="task.id"
             :title="task.title"
             :isCompleted="task.isCompleted"
+            :addedOn="task.createdAt"
+            @deleteTask="deleteTaskId"
+            @setTaskStatus="setTaskStatusId"
           ></task-item>
         </div>
       </div>
@@ -47,6 +53,7 @@ import TaskItem from "./TaskItem.vue";
 export default {
   components: { TaskItem },
   props: ["tasks"],
+  inject: ['deleteTask', 'setTaskStatus'],
   computed: {
     pendingTasks() {
       return this.tasks.filter((task) => !task.isCompleted);
@@ -61,5 +68,23 @@ export default {
       return this.tasks.some((task) => !task.isCompleted);
     },
   },
+  methods: {
+    deleteTaskId(id) {
+      this.deleteTask(id);
+    },
+    setTaskStatusId(id, status) {
+      this.setTaskStatus(id, status);
+    }
+  }
 };
 </script>
+
+<style scoped>
+.completed-tasks--list .panel-body{
+  background: #79e57980;
+}
+
+.pending-tasks--list .panel-body{
+  background: rgba(238, 5, 5, 0.1);
+}
+</style>
