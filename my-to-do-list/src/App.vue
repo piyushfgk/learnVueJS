@@ -119,7 +119,7 @@ export default {
       this.errorTaskTitle =  '';
       this.errorTaskMessage = '';
       fetch(
-        'https://vue-my-do-to-list-default-rtdb.firebaseio.com/my-do-list.json'
+        'https://vue-my-do-to-list-default-rtdb.firebaseio.com/my-to-do-list.json'
       )
         .then((response) => {
           if (response.ok) {
