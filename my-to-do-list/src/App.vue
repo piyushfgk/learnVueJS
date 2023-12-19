@@ -78,26 +78,7 @@ export default {
       errorTaskTitle: '',
       errorTaskMessage: '',
       isLoading: false,
-      storedTasks: [
-        {
-          id: 1,
-          title: "Take groceries from market",
-          isCompleted: false,
-          createdAt: "2023-04-11 11:50:23",
-        },
-        {
-          id: 2,
-          title: "Study books for self",
-          isCompleted: true,
-          createdAt: "2023-04-11 11:51:23",
-        },
-        {
-          id: 3,
-          title: "Do meditation in the morning",
-          isCompleted: false,
-          createdAt: "2023-04-11 11:55:23",
-        },
-      ],
+      storedTasks: [],
       searchTerm: "",
     };
   },
@@ -119,7 +100,7 @@ export default {
       this.errorTaskTitle =  '';
       this.errorTaskMessage = '';
       fetch(
-        'https://vue-my-do-to-list-default-rtdb.firebaseio.com/my-to-do-list.json'
+        'https://vue-http-demo-c7025-default-rtdb.asia-southeast1.firebasedatabase.app/my-to-do-list.json'
       )
         .then((response) => {
           if (response.ok) {
@@ -162,14 +143,39 @@ export default {
       }
     },
     addTask(taskTitle) {
-      const newTask = {
-        id: getMaxIdPlusOne(this.storedTasks),
-        title: taskTitle,
-        isCompleted: false,
-        createdAt: this.formattedDateTime,
-      };
 
-      this.storedTasks.unshift(newTask);
+      this.isTasksAvailable = true;
+      this.errorTaskTitle =  '';
+      this.errorTaskMessage = '';
+
+      const newTask = {
+            id: getMaxIdPlusOne(this.storedTasks),
+            title: taskTitle,
+            isCompleted: false,
+            createdAt: this.formattedDateTime
+          };
+
+      fetch(
+        'https://vue-http-demo-c7025-default-rtdb.asia-southeast1.firebasedatabase.app/my-to-do-list.json',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newTask),
+        }
+      ).then(response => {
+        if(response.ok === false) {
+          throw new Error('Could not save data!');
+        } else {
+          this.storedTasks.unshift(newTask);
+        }
+      }).catch((error) => {
+        this.isTasksAvailable = false;
+        this.errorTaskTitle =  'Their is some problem';
+        this.errorTaskMessage = 'Error submitting experience, please try again later. ' + error.message;
+      });
+
     },
     deleteTask(id) {
       this.storedTasks = this.storedTasks.filter((task) => task.id !== id);
