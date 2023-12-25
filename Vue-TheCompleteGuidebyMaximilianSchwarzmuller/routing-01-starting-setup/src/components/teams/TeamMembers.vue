@@ -9,6 +9,7 @@
         :role="member.role"
       ></user-item>
     </ul>
+    <router-link :to="backLink">👉 Go to - Random Team Member 😜</router-link>
   </section>
 </template>
 
@@ -19,14 +20,45 @@ export default {
   components: {
     UserItem
   },
+  inject: ['users', 'teams'],
+  computed: {
+    backLink() {
+     const teamIdNumber = +this.teamId.replace(/\D/g, '');
+     const teamIdLink = teamIdNumber == 1 ? teamIdNumber + 1 : teamIdNumber - 1;
+     return '/teams/t' + teamIdLink;
+    }
+  },
+  watch: {
+    $route(newRoute) {
+      this.loadTeamMembers(newRoute);
+    }
+  },
   data() {
     return {
-      teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
-    };
+      teamId: null,
+      teamName: '',
+      selectedMembers: [],
+    }
+  },
+  created() {
+   this.loadTeamMembers(this.$route);
+  },
+  methods: {
+    loadTeamMembers(route) {
+      const teamId = route.params.id;
+      const selectedTeam = this.teams.find(team => team.id === teamId);
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+
+      for(const member of members) {
+        const selectedUser = this.users.find(user => user.id === member);
+        selectedMembers.push(selectedUser);
+      }
+
+      this.teamId = teamId;
+      this.teamName = selectedTeam.name;
+      this.members = selectedMembers;
+    }
   },
 };
 </script>
@@ -48,5 +80,15 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover{
+  background: dodgerblue;
+  color: aliceblue;
 }
 </style>
