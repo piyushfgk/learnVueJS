@@ -20,6 +20,7 @@ export default {
   components: {
     UserItem
   },
+  props: ['teamId'],
   inject: ['users', 'teams'],
   computed: {
     backLink() {
@@ -29,23 +30,21 @@ export default {
     }
   },
   watch: {
-    $route(newRoute) {
-      this.loadTeamMembers(newRoute);
+    teamId(newId) {
+      this.loadTeamMembers(newId);
     }
   },
   data() {
     return {
-      teamId: null,
       teamName: '',
       selectedMembers: [],
     }
   },
   created() {
-   this.loadTeamMembers(this.$route);
+   this.loadTeamMembers(this.teamId);
   },
   methods: {
-    loadTeamMembers(route) {
-      const teamId = route.params.id;
+    loadTeamMembers(teamId) {
       const selectedTeam = this.teams.find(team => team.id === teamId);
       const members = selectedTeam.members;
       const selectedMembers = [];
@@ -55,7 +54,6 @@ export default {
         selectedMembers.push(selectedUser);
       }
 
-      this.teamId = teamId;
       this.teamName = selectedTeam.name;
       this.members = selectedMembers;
     }
