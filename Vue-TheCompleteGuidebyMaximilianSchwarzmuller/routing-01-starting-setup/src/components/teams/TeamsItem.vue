@@ -11,7 +11,11 @@ export default {
   props: ['name', 'memberCount', 'id'],
   computed: {
     getTeamId() {
-      return '/teams/' + this.id
+      // return '/teams/' + this.id; // Valid parameters to <router-link>
+      // return {path: '/teams/' + this.id}; // Valid parameters to <router-link>
+      return {
+        name: 'team-member', params: { teamId: this.id }
+      };
     }
   },
 };
