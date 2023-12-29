@@ -14,9 +14,11 @@ export default {
       // return '/teams/' + this.id; // Valid parameters to <router-link>
       // return {path: '/teams/' + this.id}; // Valid parameters to <router-link>
       return {
-        name: 'team-member', params: { teamId: this.id }
+        name: 'team-member',
+        params: { teamId: this.id },
+        query: { sort: 'asc' }
       };
-    }
+    },
   },
 };
 </script>
