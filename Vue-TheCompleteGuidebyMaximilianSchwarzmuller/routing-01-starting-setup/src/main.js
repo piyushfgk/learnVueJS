@@ -39,6 +39,11 @@ const router = createRouter({
   }
 });
 
+router.beforeEach(function(to, from, next) {
+  console.log(to, from);
+  next();
+});
+
 const app = createApp(App);
 
 app.use(router);
