@@ -26,21 +26,38 @@ const router = createRouter({
         },
       ],
     },
-    { path: '/users', components: { default: UsersList, footer: UsersFooter } },
+    {
+      path: '/users',
+      components: { default: UsersList, footer: UsersFooter },
+      beforeEnter(to, from, next) {
+        console.error('Users before enter');
+        console.log({to:to, from: from});
+        next();
+      },
+    },
     { path: '/:notFound(.*)', component: NotFound },
   ],
   linkActiveClass: 'active',
-  scrollBehavior (_, _2, savedPosition) {
+  scrollBehavior(_, _2, savedPosition) {
     console.log(savedPosition);
-    if(savedPosition) {
+    if (savedPosition) {
       return savedPosition;
     }
-    return {left: 0, top: 0}
-  }
+    return { left: 0, top: 0 };
+  },
 });
 
-router.beforeEach(function(to, from, next) {
-  console.log(to, from);
+router.beforeEach(function (to, from, next) {
+  console.error('Global before each');
+  console.log({to:to, from: from});
+  // if(to.name === 'team-member') {
+  //   next();
+  // } else {
+  //   next({
+  //     name: 'team-member',
+  //     params: {teamId: 't3'}
+  //   })
+  // }
   next();
 });
 

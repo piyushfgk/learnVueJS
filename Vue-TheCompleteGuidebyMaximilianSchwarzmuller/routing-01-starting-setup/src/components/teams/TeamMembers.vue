@@ -29,11 +29,17 @@ export default {
      return '/teams/t' + teamIdLink;
     }
   },
-  watch: {
-    teamId(newId) {
-      this.loadTeamMembers(newId);
-    }
+  beforeRouteUpdate(to, from, next) {
+    console.error("TeamMembers component before route update");
+    console.log({to: to, from: from});
+    this.loadTeamMembers(to.params.teamId);
+    next();
   },
+  // watch: {
+  //   teamId(newId) {
+  //     this.loadTeamMembers(newId);
+  //   }
+  // },
   data() {
     return {
       teamName: '',
