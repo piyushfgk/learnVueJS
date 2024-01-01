@@ -61,6 +61,12 @@ router.beforeEach(function (to, from, next) {
   next();
 });
 
+router.afterEach(function(to, from) {
+  // After a component is loaded, this is not to guard a route but to load or send data to something
+  console.error("Global after each");
+  console.log({to:to, from:from});
+});
+
 const app = createApp(App);
 
 app.use(router);
