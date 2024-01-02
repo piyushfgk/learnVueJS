@@ -28,7 +28,7 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    console.error("Before route enter UsersList component");
+    console.log("Before route enter UsersList component");
     console.log({to: to, from: from});
     next();
   },

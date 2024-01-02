@@ -16,6 +16,7 @@ const router = createRouter({
     {
       name: 'teams',
       path: '/teams',
+      meta: { needsAuth: true },
       components: { default: TeamsList, footer: TeamsFooter },
       children: [
         {
@@ -30,7 +31,7 @@ const router = createRouter({
       path: '/users',
       components: { default: UsersList, footer: UsersFooter },
       beforeEnter(to, from, next) {
-        console.error('Users before enter');
+        console.log('Users before enter');
         console.log({to:to, from: from});
         next();
       },
@@ -48,7 +49,7 @@ const router = createRouter({
 });
 
 router.beforeEach(function (to, from, next) {
-  console.error('Global before each');
+  console.log('Global before each');
   console.log({to:to, from: from});
   // if(to.name === 'team-member') {
   //   next();
@@ -58,12 +59,19 @@ router.beforeEach(function (to, from, next) {
   //     params: {teamId: 't3'}
   //   })
   // }
-  next();
+  if(to.meta.needsAuth) {
+    // Write your authentication logic here, if auth then use next()
+    console.error("This route Needs Authentication.")
+    next();
+  } else {
+    next();
+  }
+
 });
 
 router.afterEach(function(to, from) {
   // After a component is loaded, this is not to guard a route but to load or send data to something
-  console.error("Global after each");
+  console.log("Global after each");
   console.log({to:to, from:from});
 });
 

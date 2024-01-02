@@ -30,7 +30,7 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    console.error("TeamMembers component before route update");
+    console.log("TeamMembers component before route update");
     console.log({to: to, from: from});
     this.loadTeamMembers(to.params.teamId);
     next();
