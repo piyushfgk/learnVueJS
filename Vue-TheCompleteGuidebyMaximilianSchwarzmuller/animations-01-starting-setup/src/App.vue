@@ -2,6 +2,7 @@
   <div class="container">
     <div class="block" :class="{animate: isAnimate}"></div>
     <button @click="setAnimate">Animate</button>
+    <button class="btn-default" @click="resetAnimate">Reset</button>
   </div>
   <base-modal @close="hideDialog" v-if="dialogIsVisible">
     <p>This is a test dialog!</p>
@@ -21,6 +22,9 @@ export default {
     };
   },
   methods: {
+    resetAnimate() {
+      this.isAnimate = false;
+    },
     setAnimate() {
       this.isAnimate = true;
     },
@@ -58,12 +62,21 @@ button:active {
   background-color: #a80b48;
   border-color: #a80b48;
 }
+.btn-default{
+  background-color: #c7ccd1;
+  color: #000;
+}
+.btn-default:hover,
+.btn-default:active {
+  background-color:  #8d8f93;
+  border-color: #8d8f93;
+}
 .block {
   width: 8rem;
   height: 8rem;
   background-color: #290033;
   margin-bottom: 2rem;
-  transition: transform 0.3s ease-out;
+  /* transition: transform 0.3s ease-in; */
 }
 .container {
   max-width: 40rem;
@@ -78,6 +91,25 @@ button:active {
 }
 
 .animate{
-  transform: translateX(-120px);
+  /* transform: translateX(-120px); */
+  animation: slide-fade 0.5s ease-out forwards;
+}
+
+.reset-animate{
+  transform: translateX(0px);
+}
+
+@keyframes slide-fade {
+  0%{
+    transform: translateX(0px) scale(1);
+  }
+
+  70%{
+    transform: translateX(-120px) scale(1.1);
+  }
+
+  100%{
+    transform: translateX(-150px) scale(1);
+  }
 }
 </style>
