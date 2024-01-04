@@ -1,8 +1,14 @@
 <template>
   <div class="container">
-    <div class="block" :class="{animate: isAnimate}"></div>
+    <div class="block" :class="{ animate: isAnimate }"></div>
     <button @click="setAnimate">Animate</button>
     <button class="btn-default" @click="resetAnimate">Reset</button>
+  </div>
+  <div class="container">
+    <transition>
+      <p v-if="randomText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam recusandae beatae dolorem necessitatibus voluptate. Commodi, corporis, dicta nihil impedit ipsa, provident laboriosam officiis doloremque culpa dolor adipisci esse ratione! Qui?</p>
+    </transition>
+    <button @click="toggleRandomText">Random Text</button>
   </div>
   <base-modal @close="hideDialog" v-if="dialogIsVisible">
     <p>This is a test dialog!</p>
@@ -17,11 +23,15 @@
 export default {
   data() {
     return {
-      dialogIsVisible: false ,
+      dialogIsVisible: false,
       isAnimate: false,
+      randomText: false,
     };
   },
   methods: {
+    toggleRandomText() {
+      this.randomText = !this.randomText;
+    },
     resetAnimate() {
       this.isAnimate = false;
     },
@@ -62,13 +72,13 @@ button:active {
   background-color: #a80b48;
   border-color: #a80b48;
 }
-.btn-default{
+.btn-default {
   background-color: #c7ccd1;
   color: #000;
 }
 .btn-default:hover,
 .btn-default:active {
-  background-color:  #8d8f93;
+  background-color: #8d8f93;
   border-color: #8d8f93;
 }
 .block {
@@ -90,26 +100,54 @@ button:active {
   border-radius: 12px;
 }
 
-.animate{
+.animate {
   /* transform: translateX(-120px); */
   animation: slide-fade 0.5s ease-out forwards;
 }
 
-.reset-animate{
+.reset-animate {
   transform: translateX(0px);
 }
 
 @keyframes slide-fade {
-  0%{
+  0% {
     transform: translateX(0px) scale(1);
   }
 
-  70%{
+  70% {
     transform: translateX(-120px) scale(1.1);
   }
 
-  100%{
+  100% {
     transform: translateX(-150px) scale(1);
   }
+}
+
+.v-enter-from{
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.v-enter-active{
+  transition: all 0.3s ease-out;
+}
+
+.v-enter-to{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.v-leave-from{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.v-leave-active{
+  transition: all 0.5s ease-in;
+}
+
+.v-leave-to{
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>
