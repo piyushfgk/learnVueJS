@@ -15,6 +15,12 @@
     </transition>
     <button @click="toggleRandomText">Random Text</button>
   </div>
+  <div class="container">
+    <transition name="fade-button">
+      <button @click="setShowUsers" v-if="!isUsersVisible">Show Users</button>
+      <button @click="setHideUsers" v-else>Hide User</button>
+    </transition>
+  </div>
   <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
@@ -31,9 +37,16 @@ export default {
       dialogIsVisible: false,
       isAnimate: false,
       randomText: false,
+      isUsersVisible: false
     };
   },
   methods: {
+    setShowUsers() {
+      this.isUsersVisible = true;
+    },
+    setHideUsers() {
+      this.isUsersVisible = false;
+    },
     toggleRandomText() {
       this.randomText = !this.randomText;
     },
@@ -154,5 +167,21 @@ button:active {
 .v-leave-to {
   opacity: 0;
   transform: translateY(-30px);
+}
+
+.fade-button-enter-from, .fade-button-leave-from {
+  opacity: 1;
+}
+
+.fade-button-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-button-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fade-button-enter-to, .fade-button-leave-to {
+  opacity: 0;
 }
 </style>
