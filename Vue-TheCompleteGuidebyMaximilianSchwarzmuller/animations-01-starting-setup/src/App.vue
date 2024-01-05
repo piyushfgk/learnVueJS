@@ -6,14 +6,19 @@
   </div>
   <div class="container">
     <transition>
-      <p v-if="randomText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam recusandae beatae dolorem necessitatibus voluptate. Commodi, corporis, dicta nihil impedit ipsa, provident laboriosam officiis doloremque culpa dolor adipisci esse ratione! Qui?</p>
+      <p v-if="randomText">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
+        recusandae beatae dolorem necessitatibus voluptate. Commodi, corporis,
+        dicta nihil impedit ipsa, provident laboriosam officiis doloremque culpa
+        dolor adipisci esse ratione! Qui?
+      </p>
     </transition>
     <button @click="toggleRandomText">Random Text</button>
   </div>
-    <base-modal @close="hideDialog" v-if="dialogIsVisible">
-      <p>This is a test dialog!</p>
-      <button @click="hideDialog">Close it!</button>
-    </base-modal>
+  <base-modal @close="hideDialog" :open="dialogIsVisible">
+    <p>This is a test dialog!</p>
+    <button @click="hideDialog">Close it!</button>
+  </base-modal>
   <div class="container">
     <button @click="showDialog">Show Dialog</button>
   </div>
@@ -123,34 +128,31 @@ button:active {
   }
 }
 
-.v-enter-from{
+.v-enter-from {
   opacity: 0;
   transform: translateY(-30px);
 }
 
-.v-enter-active{
+.v-enter-active {
   transition: all 0.3s ease-out;
 }
 
-.v-enter-to{
+.v-enter-to {
   opacity: 1;
   transform: translateY(0);
 }
 
-.v-leave-from{
+.v-leave-from {
   opacity: 1;
   transform: translateY(0);
 }
 
-.v-leave-active{
+.v-leave-active {
   transition: all 0.5s ease-in;
 }
 
-.v-leave-to{
+.v-leave-to {
   opacity: 0;
   transform: translateY(-30px);
 }
-
-
-
 </style>
