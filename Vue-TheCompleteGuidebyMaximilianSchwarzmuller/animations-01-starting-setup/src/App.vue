@@ -16,7 +16,7 @@
     <button @click="toggleRandomText">Random Text</button>
   </div>
   <div class="container">
-    <transition name="fade-button">
+    <transition name="fade-button" mode="out-in">
       <button @click="setShowUsers" v-if="!isUsersVisible">Show Users</button>
       <button @click="setHideUsers" v-else>Hide User</button>
     </transition>
