@@ -5,7 +5,14 @@
     <button class="btn-default" @click="resetAnimate">Reset</button>
   </div>
   <div class="container">
-    <transition>
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
       <p v-if="randomText">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
         recusandae beatae dolorem necessitatibus voluptate. Commodi, corporis,
@@ -37,10 +44,34 @@ export default {
       dialogIsVisible: false,
       isAnimate: false,
       randomText: false,
-      isUsersVisible: false
+      isUsersVisible: false,
     };
   },
   methods: {
+    beforeEnter(el) {
+      console.log('beforeLeave');
+      console.log(el);
+    },
+    enter(el) {
+      console.log('enter'+' ...Wait for 2 seconds to run afterEnter');
+      console.log(el);
+    },
+    afterEnter(el) {
+      console.error('afterEnter');
+      console.log(el);
+    },
+    beforeLeave(el) {
+      console.log('beforeLeave');
+      console.log(el);
+    },
+    leave(el) {
+      console.log('leave'+' ...Wait for 3 seconds to run afterLeave');
+      console.log(el);
+    },
+    afterLeave(el) {
+      console.error('afterLeave');
+      console.log(el);
+    },
     setShowUsers() {
       this.isUsersVisible = true;
     },
@@ -147,7 +178,7 @@ button:active {
 }
 
 .v-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 2s ease-out;
 }
 
 .v-enter-to {
@@ -161,7 +192,7 @@ button:active {
 }
 
 .v-leave-active {
-  transition: all 0.5s ease-in;
+  transition: all 3s ease-in;
 }
 
 .v-leave-to {
@@ -169,7 +200,8 @@ button:active {
   transform: translateY(-30px);
 }
 
-.fade-button-enter-from, .fade-button-leave-from {
+.fade-button-enter-from,
+.fade-button-leave-from {
   opacity: 1;
 }
 
@@ -181,7 +213,8 @@ button:active {
   transition: opacity 0.3s ease-in;
 }
 
-.fade-button-enter-to, .fade-button-leave-to {
+.fade-button-enter-to,
+.fade-button-leave-to {
   opacity: 0;
 }
 </style>
