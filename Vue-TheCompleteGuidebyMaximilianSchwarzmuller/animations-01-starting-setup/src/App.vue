@@ -51,10 +51,20 @@ export default {
     beforeEnter(el) {
       console.log('beforeLeave');
       console.log(el);
+      el.style.opacity = 0;
     },
-    enter(el) {
+    enter(el, done) {
       console.log('enter'+' ...Wait for 2 seconds to run afterEnter');
       console.log(el);
+      let round = 1;
+      const interval = setInterval(() => {
+        el.style.opacity = round* 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(interval);
+          done();
+        }
+      }, 20);
     },
     afterEnter(el) {
       console.error('afterEnter');
@@ -172,7 +182,7 @@ button:active {
   }
 }
 
-.v-enter-from {
+/* .v-enter-from {
   opacity: 0;
   transform: translateY(-30px);
 }
@@ -184,7 +194,7 @@ button:active {
 .v-enter-to {
   opacity: 1;
   transform: translateY(0);
-}
+} */
 
 .v-leave-from {
   opacity: 1;
