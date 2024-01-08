@@ -12,6 +12,8 @@
       @before-leave="beforeLeave"
       @leave="leave"
       @after-leave="afterLeave"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled"
     >
       <p v-if="randomText">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
@@ -45,9 +47,21 @@ export default {
       isAnimate: false,
       randomText: false,
       isUsersVisible: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
+    enterCancelled(el) {
+      console.log('enterCancelled');
+      console.log(el);
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled(el) {
+      console.log('leaveCancelled');
+      console.log(el);
+      clearInterval(this.leaveInterval);
+    },
     beforeEnter(el) {
       console.log('beforeLeave');
       console.log(el);
@@ -57,11 +71,11 @@ export default {
       console.log('enter'+' ...Wait for 2 seconds to run afterEnter');
       console.log(el);
       let round = 1;
-      const interval = setInterval(() => {
+      this.enterInterval = setInterval(() => {
         el.style.opacity = round* 0.01;
         round++;
         if (round > 100) {
-          clearInterval(interval);
+          clearInterval(this.enterInterval);
           done();
         }
       }, 20);
@@ -79,14 +93,14 @@ export default {
       console.log('leave'+' ...Wait for 3 seconds to run afterLeave');
       console.log(el);
       let round = 1;
-      const interval = setInterval(() => {
-        el.style.opacity = 1 - (round * 0.01);
+      this.leaveInterval = setInterval(() => {
+        el.style.opacity = 1 - round * 0.01;
         round++;
         if (round > 100) {
-          clearInterval(interval);
+          clearInterval(this.leaveInterval);
           done();
         }
-      }, 10);
+      }, 30);
     },
     afterLeave(el) {
       console.error('afterLeave');
