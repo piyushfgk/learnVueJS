@@ -73,10 +73,20 @@ export default {
     beforeLeave(el) {
       console.log('beforeLeave');
       console.log(el);
+      el.style.opacity = 1;
     },
-    leave(el) {
+    leave(el, done) {
       console.log('leave'+' ...Wait for 3 seconds to run afterLeave');
       console.log(el);
+      let round = 1;
+      const interval = setInterval(() => {
+        el.style.opacity = 1 - (round * 0.01);
+        round++;
+        if (round > 100) {
+          clearInterval(interval);
+          done();
+        }
+      }, 10);
     },
     afterLeave(el) {
       console.error('afterLeave');
@@ -196,7 +206,7 @@ button:active {
   transform: translateY(0);
 } */
 
-.v-leave-from {
+/* .v-leave-from {
   opacity: 1;
   transform: translateY(0);
 }
@@ -208,7 +218,7 @@ button:active {
 .v-leave-to {
   opacity: 0;
   transform: translateY(-30px);
-}
+} */
 
 .fade-button-enter-from,
 .fade-button-leave-from {
