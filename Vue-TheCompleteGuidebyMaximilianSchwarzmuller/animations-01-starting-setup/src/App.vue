@@ -6,6 +6,7 @@
   </div>
   <div class="container">
     <transition
+      :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
