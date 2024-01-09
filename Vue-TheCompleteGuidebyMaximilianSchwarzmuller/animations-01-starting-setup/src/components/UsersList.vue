@@ -57,10 +57,15 @@ li{
 
 .users-list-leave-active{
     transition: all 0.5s ease-in;
+    position: absolute;
 }
 
 .users-list-leave-to{
     opacity: 0;
     transform: translateX(30px);
+}
+
+.users-list-move{
+    transition: transform 0.4s ease;
 }
 </style>
