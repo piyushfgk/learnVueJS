@@ -1,6 +1,6 @@
 <template>
   <router-view v-slot="someProps">
-    <transition name="route" mode="out-in">
+    <transition name="fade-button" mode="out-in">
       <component :is="someProps.Component" />
     </transition>
   </router-view>
