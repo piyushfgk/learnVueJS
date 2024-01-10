@@ -1,53 +1,13 @@
 <template>
-  <div class="container">
-    <users-list></users-list>
-  </div>
-  <div class="container">
-    <div class="block" :class="{ animate: isAnimate }"></div>
-    <button @click="setAnimate">Animate</button>
-    <button class="btn-default" @click="resetAnimate">Reset</button>
-  </div>
-  <div class="container">
-    <transition
-      :css="false"
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @after-enter="afterEnter"
-      @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
-      @enter-cancelled="enterCancelled"
-      @leave-cancelled="leaveCancelled"
-    >
-      <p v-if="randomText">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-        recusandae beatae dolorem necessitatibus voluptate. Commodi, corporis,
-        dicta nihil impedit ipsa, provident laboriosam officiis doloremque culpa
-        dolor adipisci esse ratione! Qui?
-      </p>
+  <router-view v-slot="someProps">
+    <transition name="route" mode="out-in">
+      <component :is="someProps.Component" />
     </transition>
-    <button @click="toggleRandomText">Random Text</button>
-  </div>
-  <div class="container">
-    <transition name="fade-button" mode="out-in">
-      <button @click="setShowUsers" v-if="!isUsersVisible">Show Users</button>
-      <button @click="setHideUsers" v-else>Hide User</button>
-    </transition>
-  </div>
-  <base-modal @close="hideDialog" :open="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
-  <div class="container">
-    <button @click="showDialog">Show Dialog</button>
-  </div>
+  </router-view>
 </template>
 
 <script>
-import UsersList from './components/UsersList.vue';
-
 export default {
-  components: {UsersList},
   data() {
     return {
       dialogIsVisible: false,
@@ -75,11 +35,11 @@ export default {
       el.style.opacity = 0;
     },
     enter(el, done) {
-      console.log('enter'+' ...Wait for 2 seconds to run afterEnter');
+      console.log('enter' + ' ...Wait for 2 seconds to run afterEnter');
       console.log(el);
       let round = 1;
       this.enterInterval = setInterval(() => {
-        el.style.opacity = round* 0.01;
+        el.style.opacity = round * 0.01;
         round++;
         if (round > 100) {
           clearInterval(this.enterInterval);
@@ -97,7 +57,7 @@ export default {
       el.style.opacity = 1;
     },
     leave(el, done) {
-      console.log('leave'+' ...Wait for 3 seconds to run afterLeave');
+      console.log('leave' + ' ...Wait for 3 seconds to run afterLeave');
       console.log(el);
       let round = 1;
       this.leaveInterval = setInterval(() => {
@@ -240,6 +200,14 @@ button:active {
   opacity: 0;
   transform: translateY(-30px);
 } */
+
+.route-enter-active {
+  animation: slide-fade 0.5s ease-out;
+}
+
+.route-leave-active {
+  animation: slide-fade 0.5s ease-in;
+}
 
 .fade-button-enter-from,
 .fade-button-leave-from {
