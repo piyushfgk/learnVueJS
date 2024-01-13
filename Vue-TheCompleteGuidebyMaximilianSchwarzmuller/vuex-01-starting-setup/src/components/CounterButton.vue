@@ -1,14 +1,18 @@
 <template>
-  <button @click="incrementCounter">Add+</button>
+  <button @click="increment">Add 1*2</button>
+  <button @click="increase({value: 11})">Add 11*2</button>
   <p>Another counter button</p>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   methods: {
-    incrementCounter() {
-      this.$store.dispatch('increment');
-    },
+    // incrementCounter() {
+    //   this.$store.dispatch('increment');
+    // },
+    ...mapActions(['increment', 'increase'])
   },
 };
 </script>
