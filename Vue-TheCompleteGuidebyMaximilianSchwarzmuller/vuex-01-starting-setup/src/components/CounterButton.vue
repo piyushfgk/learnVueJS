@@ -1,6 +1,6 @@
 <template>
-  <button @click="increment">Add 1*2</button>
-  <button @click="increase({value: 11})">Add 11*2</button>
+  <button @click="addOne">Add 1*2</button>
+  <button @click="increase({ value: 11 })">Add 11*2</button>
   <p>Another counter button</p>
 </template>
 
@@ -12,18 +12,21 @@ export default {
     // incrementCounter() {
     //   this.$store.dispatch('increment');
     // },
-    ...mapActions(['increment', 'increase'])
+    ...mapActions({
+      addOne: 'increment',
+      increase: 'increase',
+    }),
   },
 };
 </script>
 
 <style scoped>
-button{
+button {
   background: yellowgreen;
   margin-left: 2em;
 }
 
-p{
+p {
   display: inline;
   margin-left: 10px;
 }
