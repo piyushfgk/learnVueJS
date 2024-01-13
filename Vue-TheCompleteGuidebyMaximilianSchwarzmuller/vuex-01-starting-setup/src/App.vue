@@ -23,7 +23,7 @@ export default {
   methods: {
     addToCounter(incrementBy) {
       // this.$store.commit('increase', { value: incrementBy });
-      this.$store.commit({
+      this.$store.dispatch({
         type: 'increase',
         value: incrementBy
       })

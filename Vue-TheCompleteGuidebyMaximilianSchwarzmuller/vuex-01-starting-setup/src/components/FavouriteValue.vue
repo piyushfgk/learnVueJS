@@ -1,5 +1,5 @@
 <template>
-  <h3>{{ counter }}</h3>
+  <h3>{{ counter }} <span>Another counter</span></h3>
 </template>
 
 <script>
@@ -11,3 +11,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+span{
+  color: blueviolet;
+  font-size: 0.7em;
+}
+</style>
