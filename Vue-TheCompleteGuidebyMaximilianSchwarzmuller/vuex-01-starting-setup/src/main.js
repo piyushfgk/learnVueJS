@@ -19,6 +19,7 @@ const store = createStore({
     },
     actions: {
         increment(context) {
+            console.log(context);
             context.commit('increment');
         },
         increase(context, payload) {
