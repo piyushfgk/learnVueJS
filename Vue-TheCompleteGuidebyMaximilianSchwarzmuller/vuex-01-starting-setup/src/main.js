@@ -6,7 +6,8 @@ import App from './App.vue';
 const store = createStore({
     state() {
         return {
-            counter: 0
+            counter: 0,
+            isAuth: false
         }
     },
     mutations: {
@@ -15,6 +16,12 @@ const store = createStore({
         },
         increase(state, payload) {
             state.counter += payload.value;
+        },
+        login(state) {
+            state.isAuth = true;
+        },
+        logout(state) {
+            state.isAuth = false;
         }
     },
     actions: {
@@ -27,6 +34,12 @@ const store = createStore({
                 context.commit('increase', payload);
             }, 1500); // Execute after 1.5 seconds
             // actions are allowed to run async code
+        },
+        setLogin(context) {
+            context.commit('login');
+        },
+        setLogout(context) {
+            context.commit('logout');
         }
     },
     getters: {
@@ -40,6 +53,9 @@ const store = createStore({
             if(finalCounter > 100) return 100;
 
             return finalCounter;
+        },
+        userIsAuthenticated(state) {
+            return state.isAuth;
         }
     }
 });
