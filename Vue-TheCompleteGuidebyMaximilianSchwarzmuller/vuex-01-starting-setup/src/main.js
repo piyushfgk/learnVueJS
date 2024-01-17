@@ -2,56 +2,7 @@ import { createApp } from 'vue';
 import { createStore } from 'vuex';
 
 import App from './App.vue';
-
-const counterModule = {
-    namespaced: true,
-    state() {
-        return {
-            counter: 0,
-        }
-    },
-    mutations: {
-        increment(state) {
-            state.counter++;
-        },
-        increase(state, payload) {
-            state.counter += payload.value;
-        },
-    },
-    actions: {
-        increment(context) {
-            console.log(context);
-            context.commit('increment');
-        },
-        increase(context, payload) {
-            setTimeout(() => {
-                context.commit('increase', payload);
-            }, 1500); // Execute after 1.5 seconds
-            // actions are allowed to run async code
-        },
-    },
-    getters: {
-        finalCounter(state, getters, rootState, rootGetters) {
-            console.log({
-                "isAuth": rootState.isAuth,
-                "isUserAuthenticated": rootGetters.userIsAuthenticated,
-                "message": "isAuth access from counter module",
-                "getters": getters,
-                "rootState": rootState,
-                "rootGetters": rootGetters
-            });
-            return state.counter * 2;
-        },
-        normaliseCounter(_, getters) {
-            const finalCounter = getters.finalCounter;
-
-            if(finalCounter < 0) return 0;
-            if(finalCounter > 100) return 100;
-
-            return finalCounter;
-        },
-    }
-};
+import counterModule from './store/counter';
 
 const store = createStore({
     modules: {
