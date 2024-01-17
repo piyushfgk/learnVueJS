@@ -33,7 +33,7 @@ export default {
     addToCounter(incrementBy) {
       // this.$store.commit('increase', { value: incrementBy });
       this.$store.dispatch({
-        type: 'increase',
+        type: 'numbers/increase',
         value: incrementBy
       })
     },
