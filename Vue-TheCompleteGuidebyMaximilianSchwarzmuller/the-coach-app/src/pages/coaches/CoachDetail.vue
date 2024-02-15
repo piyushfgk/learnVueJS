@@ -1,4 +1,3 @@
-import BaseButton from '@/components/ui/BaseButton.vue';
 <template>
   <section>
     <base-card>

@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import CoachItem from '../../coaches/CoachItem.vue'
-import CoachFilter from '../../coaches/CoachFilter.vue'
+import CoachItem from '../../components/coaches/CoachItem.vue'
+import CoachFilter from '../../components/coaches/CoachFilter.vue'
 
 export default {
   data() {
