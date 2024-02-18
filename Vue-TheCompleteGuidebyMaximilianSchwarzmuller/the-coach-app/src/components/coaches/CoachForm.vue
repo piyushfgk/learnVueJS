@@ -69,9 +69,7 @@
       </div>
       <p v-if="!areas.isValid">At least one area of expertise must be selected.</p>
     </div>
-    <p v-if="!formIsValid" :class="{ invalid: !formIsValid }">
-      Please correct the input from one of the above!
-    </p>
+    <p v-if="!formIsValid">Please correct the input from one of the above!</p>
     <base-button>Register</base-button>
   </form>
 </template>
@@ -193,8 +191,7 @@ h3 {
   font-size: 1rem;
 }
 
-.invalid label,
-.invalid p {
+.invalid label {
   color: red;
 }
 
