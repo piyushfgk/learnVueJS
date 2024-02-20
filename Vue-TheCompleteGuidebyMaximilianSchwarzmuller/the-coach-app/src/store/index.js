@@ -1,11 +1,12 @@
 import { createStore } from 'vuex'
 
 import coachesModule from './modules/coaches'
-import { resolveTypeElements } from 'vue/compiler-sfc'
+import requestModule from './modules/requests'
 
 const store = createStore({
   modules: {
-    coaches: coachesModule
+    coaches: coachesModule,
+    requests: requestModule
   },
   state() {
     return {
