@@ -24,6 +24,7 @@ export default {
     } else {
       console.log(responseData)
     }
+    console.log(userId)
 
     context.commit('registerCoach', { ...coachData, id: userId })
   },
