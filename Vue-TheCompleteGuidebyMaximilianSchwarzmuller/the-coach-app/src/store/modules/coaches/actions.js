@@ -34,7 +34,7 @@ export default {
     }
 
     const response = await fetch(
-      `https://vue-http-demo-c7025-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.jso`
+      `https://vue-http-demo-c7025-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json`
     )
 
     const responseData = await response.json()
