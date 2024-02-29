@@ -59,14 +59,11 @@ export default {
       this.isLoading = true
 
       try {
-        if (this.mode === 'login') {
-          //..
-        } else {
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password
-          })
-        }
+        await this.$store.dispatch('authentication', {
+          email: this.email,
+          password: this.password,
+          mode: this.mode
+        })
       } catch (error) {
         this.error = error.message || 'Failed to authenticate, try later.'
       }

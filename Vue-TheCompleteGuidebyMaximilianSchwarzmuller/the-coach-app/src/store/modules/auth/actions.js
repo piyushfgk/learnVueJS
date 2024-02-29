@@ -1,18 +1,17 @@
 export default {
-  login() {},
-  async signup(context, payload) {
-    const key = 'AIzaSyD5RoVZL0jhgo5zwUNggDoHC9v-eCLNIdo'
-    const response = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email: payload.email,
-          password: payload.password,
-          returnSecureToken: true
-        })
-      }
-    )
+  async authentication(context, payload) {
+    const mode = payload.mode
+    const key = context.state.apiKey
+    const url = mode === 'login' ? context.state.signinUrl : context.state.signupUrl
+
+    const response = await fetch(`${url}?key=${key}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: payload.email,
+        password: payload.password,
+        returnSecureToken: true
+      })
+    })
 
     const responseData = await response.json()
 
@@ -24,7 +23,10 @@ export default {
       throw error
     }
 
-    console.log(responseData)
+    console.log({
+      mode: mode,
+      responseData: responseData
+    })
     context.commit('setUser', {
       token: responseData.idToken,
       userId: responseData.localId,
