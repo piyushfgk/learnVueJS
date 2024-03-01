@@ -1,10 +1,12 @@
 <template>
-  <the-header></the-header>
-  <router-view v-slot="slotProps">
-    <transition name="route" mode="out-in">
-      <component :is="slotProps.Component"></component>
-    </transition>
-  </router-view>
+  <div>
+    <the-header></the-header>
+    <router-view v-slot="slotProps">
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component"></component>
+      </transition>
+    </router-view>
+  </div>
 </template>
 
 <script>
@@ -13,6 +15,9 @@ import TheHeader from './components/layout/TheHeader.vue'
 export default {
   components: {
     TheHeader
+  },
+  created() {
+    this.$store.dispatch('tryLogin')
   }
 }
 </script>
