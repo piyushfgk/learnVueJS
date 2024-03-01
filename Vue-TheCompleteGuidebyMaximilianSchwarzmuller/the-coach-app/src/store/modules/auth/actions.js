@@ -1,4 +1,16 @@
 export default {
+  async login(context, payload) {
+    context.dispatch('authentication', {
+      ...payload,
+      mode: 'login'
+    })
+  },
+  async signup(context, payload) {
+    context.dispatch('authentication', {
+      ...payload,
+      mode: 'signup'
+    })
+  },
   async authentication(context, payload) {
     const mode = payload.mode
     const key = context.state.apiKey
