@@ -42,8 +42,8 @@ export default {
       responseData: responseData
     })
 
-    const expiresIn = 10000 // For testing
-    // const expiresIn = responseData.expiresIn * 1000
+    // const expiresIn = 10000 // For testing
+    const expiresIn = responseData.expiresIn * 1000
     const expirationDate = new Date().getTime() + expiresIn
 
     localStorage.setItem('tokenExpiration', expirationDate)
