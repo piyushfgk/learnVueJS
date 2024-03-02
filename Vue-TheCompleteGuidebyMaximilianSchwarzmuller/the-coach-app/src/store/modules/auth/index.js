@@ -10,7 +10,7 @@ export default {
       signinUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword',
       userId: null,
       token: null,
-      tokenExpiration: null
+      didAutoLogout: false
     }
   },
   getters: getters,
