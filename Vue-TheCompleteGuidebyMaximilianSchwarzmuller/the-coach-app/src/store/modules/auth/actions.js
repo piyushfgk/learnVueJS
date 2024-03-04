@@ -27,6 +27,14 @@ export default {
       })
     })
 
+    // console.log({
+    //   mode: mode,
+    //   responseData: responseData
+    // })
+
+    // const expiresIn = 10000 // For testing
+
+    // try {
     const responseData = await response.json()
 
     if (!response.ok) {
@@ -42,7 +50,6 @@ export default {
       responseData: responseData
     })
 
-    // const expiresIn = 10000 // For testing
     const expiresIn = responseData.expiresIn * 1000
     const expirationDate = new Date().getTime() + expiresIn
 
@@ -59,6 +66,12 @@ export default {
       userId: responseData.localId,
       tokenExpiration: responseData.expiresIn
     })
+    // } catch (error) {
+    //   console.log({
+    //     message: 'error from actions.js',
+    //     error: error
+    //   })
+    // }
   },
   tryLogin(context) {
     const token = localStorage.getItem('token')

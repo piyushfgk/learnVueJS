@@ -58,26 +58,24 @@ export default {
 
       this.isLoading = true
 
+      const actionPayload = {
+        email: this.email,
+        password: this.password,
+        mode: this.mode
+      }
+
       try {
-        if (this.mode === 'login') {
-          await this.$store.dispatch('login', {
-            email: this.email,
-            password: this.password
-          })
-        } else {
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password
-          })
-        }
+        await this.$store.dispatch('authentication', actionPayload)
 
         const redirectUrl = '/' + (this.$route.query.redirect || 'coaches')
         this.$router.replace(redirectUrl)
       } catch (error) {
-        this.error = error.message || 'Failed to authenticate, try later.'
+        console.log('Error message:', error.message) // Log specific message
+        console.log('Error code:', error.code) // Log specific code
+        this.error = error.message
+      } finally {
+        this.isLoading = false
       }
-
-      this.isLoading = false
     },
     switchAuthMode() {
       this.mode = this.mode === 'login' ? 'signup' : 'login'
