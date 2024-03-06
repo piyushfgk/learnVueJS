@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, isRef, isReactive } from 'vue';
 
 const count = ref(0);
 
@@ -28,6 +28,15 @@ setTimeout(() => {
     user.value.age = 5;
   }, 2000);
 }, 2000);
+
+console.log({
+  isUserRef: isRef(user),
+  isUserReactive: isReactive(user),
+  isUserValueRef: isRef(user.value),
+  isUserValueReactive: isReactive(user.value),
+  isUserNameRef: isRef(user.value.name),
+  isUserNameReactive: isReactive(user.value.name),
+});
 </script>
 
 <style>
