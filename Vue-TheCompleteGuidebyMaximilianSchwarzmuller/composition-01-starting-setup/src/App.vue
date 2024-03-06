@@ -4,6 +4,10 @@
     <h3>{{ user.age }}</h3>
     <h4>{{ count }}</h4>
     <button @click="count++">Increment</button>
+    <button @click="changeAge('Piyush')">Change Age</button>
+    <p v-if="user.name === 'Piyush' && !isAgeAltered">
+      If have only {{ countdown }} seconds to change Piyush age...!
+    </p>
   </section>
 </template>
 
@@ -11,13 +15,16 @@
 import { ref, isRef, isReactive } from 'vue';
 
 const count = ref(0);
+const countdown = ref(5);
+const newAge = 40;
+const isAgeAltered = ref(false);
 
 const user = ref({
   name: 'Piyush',
   age: 59,
 });
 
-setTimeout(() => {
+const timeoutId = setTimeout(() => {
   user.value = {
     name: 'Ravina',
     age: 39,
@@ -26,8 +33,18 @@ setTimeout(() => {
   setTimeout(() => {
     user.value.name = 'Prabhas';
     user.value.age = 5;
-  }, 2000);
-}, 2000);
+  }, 5000);
+}, 5000);
+
+// Start the countdown timer
+const intervalId = setInterval(() => {
+  if (countdown.value > 0) {
+    countdown.value--;
+  } else {
+    clearTimeout(timeoutId);
+    clearInterval(intervalId);
+  }
+}, 1000); // Update timer every second
 
 console.log({
   isUserRef: isRef(user),
@@ -37,6 +54,13 @@ console.log({
   isUserNameRef: isRef(user.value.name),
   isUserNameReactive: isReactive(user.value.name),
 });
+
+function changeAge(userName) {
+  if (user.value.name === userName) {
+    user.value.age = newAge;
+    isAgeAltered.value = true;
+  }
+}
 </script>
 
 <style>
