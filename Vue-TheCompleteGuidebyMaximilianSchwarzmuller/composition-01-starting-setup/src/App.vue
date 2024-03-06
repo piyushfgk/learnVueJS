@@ -4,22 +4,14 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    const uName = ref('Piyush');
+const userName = ref('Piyush');
 
-    setTimeout(() => {
-      uName.value = 'Ravina';
-    }, 2000);
-
-    return {
-      userName: uName,
-    };
-  },
-};
+setTimeout(() => {
+  userName.value = 'Ravina';
+}, 2000);
 </script>
 
 <style>
