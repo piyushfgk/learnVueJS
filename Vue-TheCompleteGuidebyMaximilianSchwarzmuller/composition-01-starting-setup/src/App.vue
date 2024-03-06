@@ -2,11 +2,15 @@
   <section class="container">
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
+    <h4>{{ count }}</h4>
+    <button @click="count++">Increment</button>
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+
+const count = ref(0);
 
 const user = ref({
   name: 'Piyush',
