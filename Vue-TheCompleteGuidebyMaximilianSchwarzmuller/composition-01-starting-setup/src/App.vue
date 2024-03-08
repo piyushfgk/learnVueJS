@@ -1,23 +1,32 @@
 <template>
-  <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
-    <h4>{{ count }}</h4>
-    <button @click="count++">Increment</button>
-    <button @click="changeAge('Piyush')">Change Age</button>
-    <p v-if="user.name === 'Piyush' && !isAgeAltered">
-      If have only {{ countdown }} seconds to change Piyush age...!
-    </p>
-  </section>
+  <div>
+    <section class="container">
+      <h2>{{ user.name }}</h2>
+      <h3>{{ user.age }}</h3>
+      <h4>{{ count }}</h4>
+      <button @click="count++">Increment</button>
+      <button @click="changeAge('Piyush')">Change Age</button>
+      <p v-if="user.name === 'Piyush' && !isAgeAltered">
+        If have only {{ countdown }} seconds to change Piyush age...!
+      </p>
+    </section>
+    <section class="container">
+      <h2>{{ fullName }}</h2>
+      <input type="text" placeholder="First Name" @input="inputFirstName" />
+      <input type="text" placeholder="Last Name" @input="inputLastName" />
+    </section>
+  </div>
 </template>
 
 <script setup>
-import { ref, isRef, isReactive } from 'vue';
+import { ref, isRef, isReactive, computed } from 'vue';
 
 const count = ref(0);
 const countdown = ref(5);
 const newAge = 40;
 const isAgeAltered = ref(false);
+const firstName = ref('');
+const lastName = ref('');
 
 const user = ref({
   name: 'Piyush',
@@ -61,6 +70,18 @@ function changeAge(userName) {
     isAgeAltered.value = true;
   }
 }
+
+function inputFirstName(event) {
+  firstName.value = event.target.value;
+}
+
+function inputLastName(event) {
+  lastName.value = event.target.value;
+}
+
+const fullName = computed(function () {
+  return firstName.value + ' ' + lastName.value;
+});
 </script>
 
 <style>
