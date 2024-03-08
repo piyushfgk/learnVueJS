@@ -12,8 +12,10 @@
     </section>
     <section class="container">
       <h2>{{ fullName }}</h2>
-      <input type="text" placeholder="First Name" @input="inputFirstName" />
-      <input type="text" placeholder="Last Name" @input="inputLastName" />
+      <!-- <input type="text" placeholder="First Name" @input="inputFirstName" />
+      <input type="text" placeholder="Last Name" @input="inputLastName" /> -->
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" v-model="lastName" />
     </section>
   </div>
 </template>
@@ -71,13 +73,13 @@ function changeAge(userName) {
   }
 }
 
-function inputFirstName(event) {
-  firstName.value = event.target.value;
-}
+// function inputFirstName(event) {
+//   firstName.value = event.target.value;
+// }
 
-function inputLastName(event) {
-  lastName.value = event.target.value;
-}
+// function inputLastName(event) {
+//   lastName.value = event.target.value;
+// }
 
 const fullName = computed(function () {
   return firstName.value + ' ' + lastName.value;
