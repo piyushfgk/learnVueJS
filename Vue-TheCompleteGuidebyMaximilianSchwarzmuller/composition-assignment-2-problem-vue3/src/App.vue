@@ -58,7 +58,7 @@ export default {
   },
 };
 </script> -->
-
+<!--
 <script setup>
 import { ref, computed, watch } from "vue";
 
@@ -86,6 +86,32 @@ watch(remainingFunds, function (val) {
     alert("You are broke!");
   }
 });
+</script> -->
+
+<script setup>
+import { ref } from "vue";
+
+let availableFunds = 100;
+let enteredExpense = 0;
+const currentExpenses = ref(0);
+let message = "";
+let remainingFunds = 0;
+
+function addExpense() {
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
+  availableFunds += randomNumber;
+
+  currentExpenses.value += enteredExpense;
+
+  message = `Funds increased by Rs.${randomNumber}`;
+  message += availableFunds - currentExpenses.value <= 0 ? "😟" : "😉";
+
+  remainingFunds = availableFunds - currentExpenses.value;
+
+  if (remainingFunds < 0) {
+    alert("You are broke!");
+  }
+}
 </script>
 
 <style>
