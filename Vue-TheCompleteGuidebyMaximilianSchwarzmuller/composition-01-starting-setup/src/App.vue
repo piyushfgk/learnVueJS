@@ -1,7 +1,11 @@
 <template>
   <div>
     <section class="container">
-      <user-data :user-name="user.name" :age="user.age"></user-data>
+      <user-data
+        :first-name="firstName"
+        :last-name="lastName"
+        :age="user.age"
+      ></user-data>
       <!-- <h2>{{ user.name }}</h2>
       <h3>{{ user.age }}</h3> -->
       <h4>{{ count }}</h4>
