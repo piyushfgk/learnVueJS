@@ -1,8 +1,9 @@
 <template>
   <div>
     <section class="container">
-      <h2>{{ user.name }}</h2>
-      <h3>{{ user.age }}</h3>
+      <user-data :user-name="user.name" :age="user.age"></user-data>
+      <!-- <h2>{{ user.name }}</h2>
+      <h3>{{ user.age }}</h3> -->
       <h4>{{ count }}</h4>
       <button @click="count++">Increment</button>
       <button @click="changeAge('Piyush')">Change Age</button>
@@ -23,6 +24,7 @@
 
 <script setup>
 import { ref, isRef, isReactive, computed } from 'vue';
+import UserData from './components/UserData.vue';
 
 const count = ref(0);
 const countdown = ref(5);
