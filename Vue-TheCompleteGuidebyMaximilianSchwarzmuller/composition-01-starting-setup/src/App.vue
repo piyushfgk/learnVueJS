@@ -15,7 +15,8 @@
       <!-- <input type="text" placeholder="First Name" @input="inputFirstName" />
       <input type="text" placeholder="Last Name" @input="inputLastName" /> -->
       <input type="text" placeholder="First Name" v-model="firstName" />
-      <input type="text" placeholder="Last Name" v-model="lastName" />
+      <input type="text" placeholder="Last Name" ref="lastNameInput" />
+      <button @click="setLastName">Set last name</button>
     </section>
   </div>
 </template>
@@ -29,6 +30,7 @@ const newAge = 40;
 const isAgeAltered = ref(false);
 const firstName = ref('');
 const lastName = ref('');
+const lastNameInput = ref(null);
 
 const user = ref({
   name: 'Piyush',
@@ -84,6 +86,10 @@ function changeAge(userName) {
 const fullName = computed(function () {
   return firstName.value + ' ' + lastName.value;
 });
+
+function setLastName() {
+  lastName.value = lastNameInput.value.value;
+}
 </script>
 
 <style>
