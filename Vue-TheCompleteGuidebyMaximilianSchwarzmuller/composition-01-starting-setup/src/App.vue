@@ -1,11 +1,7 @@
 <template>
   <div>
     <section class="container">
-      <user-data
-        :first-name="firstName"
-        :last-name="lastName"
-        :age="user.age"
-      ></user-data>
+      <user-data :first-name="firstName" :last-name="lastName"></user-data>
       <!-- <h2>{{ user.name }}</h2>
       <h3>{{ user.age }}</h3> -->
       <h4>{{ count }}</h4>
@@ -27,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, isRef, isReactive, computed } from 'vue';
+import { ref, isRef, isReactive, computed, provide } from 'vue';
 import UserData from './components/UserData.vue';
 
 const count = ref(0);
@@ -42,6 +38,8 @@ const user = ref({
   name: 'Piyush',
   age: 59,
 });
+
+provide('userDetail', user);
 
 const timeoutId = setTimeout(() => {
   user.value = {
