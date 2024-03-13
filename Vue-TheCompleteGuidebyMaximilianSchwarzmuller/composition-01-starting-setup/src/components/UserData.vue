@@ -6,7 +6,17 @@
 </template>
 
 <script setup>
-import { computed, defineProps, inject } from 'vue';
+import {
+  computed,
+  defineProps,
+  inject,
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onBeforeUnmount,
+  onUnmounted,
+  onUpdated,
+} from 'vue';
 
 // const props = defineProps(['firstName', 'lastName']);
 const props = defineProps({
@@ -15,6 +25,30 @@ const props = defineProps({
 });
 
 const user = inject('userDetail');
+
+onBeforeMount(() => {
+  console.log('1. onBeforeMount');
+});
+
+onMounted(() => {
+  console.log('2. onMounted');
+});
+
+onBeforeUpdate(() => {
+  console.log('3. onBeforeUpdate');
+});
+
+onBeforeUnmount(() => {
+  console.log('4. onBeforeUnmount');
+});
+
+onUnmounted(() => {
+  console.log('5. onUnmounted');
+});
+
+onUpdated(() => {
+  console.log('6. onUpdated');
+});
 
 const fullName = computed(function () {
   return props.firstName + ' ' + props.lastName;
