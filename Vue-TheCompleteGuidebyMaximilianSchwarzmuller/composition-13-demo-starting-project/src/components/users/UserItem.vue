@@ -4,7 +4,7 @@
     <button @click="viewProjects">View Projects</button>
   </li>
 </template>
-
+<!--
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
@@ -15,7 +15,8 @@ function viewProjects() {
   emits('list-projects', props.id);
 }
 </script>
-<!--
+-->
+
 <script>
 export default {
   props: ['id', 'userName'],
@@ -26,7 +27,7 @@ export default {
     },
   },
 };
-</script> -->
+</script>
 
 <style scoped>
 li {

@@ -26,15 +26,14 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed, watch } from 'vue';
+import { ref, defineProps, computed, watch, defineEmits } from 'vue';
 import UserItem from './UserItem.vue';
 
 const props = defineProps(['users']);
+defineEmits(['list-projects']);
 
 const enteredSearchTerm = ref('');
 const activeSearchTerm = ref('');
-const sorting = ref('');
-
 const availableUsers = computed(() => {
   let users = [];
   if (activeSearchTerm.value) {
@@ -47,6 +46,11 @@ const availableUsers = computed(() => {
   return users;
 });
 
+function updateSearch(val) {
+  enteredSearchTerm.value = val;
+}
+
+const sorting = ref('');
 const displayedUsers = computed(() => {
   if (!sorting.value) {
     return availableUsers.value;
@@ -64,16 +68,13 @@ const displayedUsers = computed(() => {
   });
 });
 
-function updateSearch(val) {
-  enteredSearchTerm.value = val;
-}
 function sort(mode) {
   sorting.value = mode;
 }
 
-watch(enteredSearchTerm, (newValue, oldValue) => {
+watch(enteredSearchTerm, (newValue) => {
   setTimeout(() => {
-    if (newValue === oldValue) {
+    if (newValue === enteredSearchTerm.value) {
       activeSearchTerm.value = newValue;
     }
   }, 300);
