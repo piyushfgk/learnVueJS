@@ -15,15 +15,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import UserAlert from './UserAlert.vue';
+import useAlert from '../hooks/alert';
 
-const alertIsVisible = ref(false);
-
-function showAlert() {
-  alertIsVisible.value = true;
-}
-function hideAlert() {
-  alertIsVisible.value = false;
-}
+const [alertIsVisible, showAlert, hideAlert] = useAlert();
 </script>
