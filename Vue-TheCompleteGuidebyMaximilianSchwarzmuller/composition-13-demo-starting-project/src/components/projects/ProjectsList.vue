@@ -21,93 +21,32 @@
 </template>
 
 <script setup>
-import { ref, defineProps, computed, watch, toRefs } from 'vue';
+import { defineProps, computed, watch, toRefs } from 'vue';
 import ProjectItem from './ProjectItem.vue';
-
-const props = defineProps(['user']);
-
-const activeSearchTerm = ref('');
-const availableProjects = computed(() => {
-  if (activeSearchTerm.value) {
-    return props.user.projects.filter((prj) =>
-      prj.title.includes(activeSearchTerm.value)
-    );
-  }
-  return props.user.projects;
-});
-
-const enteredSearchTerm = ref('');
-function updateSearch(val) {
-  enteredSearchTerm.value = val;
-}
-
-const hasProjects = computed(() => {
-  return props.user.projects && availableProjects.value.length > 0;
-});
-
-watch(enteredSearchTerm, (newValue) => {
-  setTimeout(() => {
-    if (newValue === enteredSearchTerm.value) {
-      activeSearchTerm.value = newValue;
-    }
-  }, 300);
-});
+import useSearch from '../../hooks/search';
 
 // Extracting props by using toRefs to make it reactive to finally use in watch, as watch only works on reactive
+const props = defineProps(['user']);
 const { user } = toRefs(props);
+
+const projects = computed(() => {
+  return user.value ? user.value.projects : [];
+});
+console.log(projects);
+
+const [enteredSearchTerm, availableProjects, updateSearch] = useSearch(
+  projects,
+  'title'
+);
+
+const hasProjects = computed(() => {
+  return user.value.projects && availableProjects.value.length > 0;
+});
 
 watch(user, () => {
   enteredSearchTerm.value = '';
 });
 </script>
-<!--
-<script>
-import ProjectItem from './ProjectItem.vue';
-
-export default {
-  components: {
-    ProjectItem,
-  },
-  props: ['user'],
-  data() {
-    return {
-      enteredSearchTerm: '',
-      activeSearchTerm: '',
-    };
-  },
-  computed: {
-    hasProjects() {
-      return this.user.projects && this.availableProjects.length > 0;
-    },
-    availableProjects() {
-      if (this.activeSearchTerm) {
-        return this.user.projects.filter((prj) =>
-          prj.title.includes(this.activeSearchTerm)
-        );
-      }
-      return this.user.projects;
-    },
-  },
-  methods: {
-    updateSearch(val) {
-      this.enteredSearchTerm = val;
-    },
-  },
-  watch: {
-    enteredSearchTerm(val) {
-      setTimeout(() => {
-        if (val === this.enteredSearchTerm) {
-          this.activeSearchTerm = val;
-        }
-      }, 300);
-    },
-    user() {
-      this.enteredSearchTerm = '';
-    },
-  },
-};
-</script>
--->
 
 <style scoped>
 ul {
