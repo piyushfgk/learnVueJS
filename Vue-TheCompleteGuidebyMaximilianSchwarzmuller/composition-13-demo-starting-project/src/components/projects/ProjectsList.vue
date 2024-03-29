@@ -32,7 +32,6 @@ const { user } = toRefs(props);
 const projects = computed(() => {
   return user.value ? user.value.projects : [];
 });
-console.log(projects);
 
 const [enteredSearchTerm, availableProjects, updateSearch] = useSearch(
   projects,
@@ -44,7 +43,7 @@ const hasProjects = computed(() => {
 });
 
 watch(user, () => {
-  enteredSearchTerm.value = '';
+  updateSearch('');
 });
 </script>
 

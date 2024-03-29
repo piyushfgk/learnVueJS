@@ -26,40 +26,21 @@
 </template>
 
 <script setup>
-import { ref, computed, defineEmits, defineProps, toRefs } from 'vue';
+import { defineEmits, defineProps, toRefs } from 'vue';
 import UserItem from './UserItem.vue';
 import useSearch from '../../hooks/search';
+import useSort from '../../hooks/sort';
 
 defineEmits(['list-projects']);
 const props = defineProps(['users']);
 const { users } = toRefs(props);
 
-const [enteredSearchTerm, availableUsers, updateSearch] = useSearch(
+const [enteredSearchTerm, availableItems, updateSearch] = useSearch(
   users,
   'fullName'
 );
 
-const sorting = ref('');
-const displayedUsers = computed(() => {
-  if (!sorting.value) {
-    return availableUsers.value;
-  }
-  return availableUsers.value.slice().sort((u1, u2) => {
-    if (sorting.value === 'asc' && u1.fullName > u2.fullName) {
-      return 1;
-    } else if (sorting.value === 'asc') {
-      return -1;
-    } else if (sorting.value === 'desc' && u1.fullName > u2.fullName) {
-      return -1;
-    } else {
-      return 1;
-    }
-  });
-});
-
-function sort(mode) {
-  sorting.value = mode;
-}
+const [sorting, displayedUsers, sort] = useSort(availableItems, 'fullName');
 </script>
 
 <style scoped>
