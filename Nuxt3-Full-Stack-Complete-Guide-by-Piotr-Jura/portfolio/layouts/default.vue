@@ -9,7 +9,7 @@
       <NuxtLayout :name="headerLayout"></NuxtLayout>
     </header>
 
-    <div class="mb-auto p-2">
+    <div class="mb-auto p-2 mt-10">
       <NuxtPage></NuxtPage>
     </div>
 
