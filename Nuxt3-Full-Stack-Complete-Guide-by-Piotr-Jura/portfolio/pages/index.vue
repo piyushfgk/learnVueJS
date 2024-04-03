@@ -41,4 +41,8 @@ useHead({
 body {
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
+
+body {
+  @apply bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300;
+}
 </style>
