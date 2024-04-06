@@ -3,16 +3,16 @@ title: Upload project using Github and automatic project update
 
 description: 1. Go to you windows system, and install Git if not installed [Download from here](https://git-scm.com/downloads). 2. You have created private repository, so you must have to generate SSH keys and add it to your github account/repository. 3. Open Git Bash and Generate a SSH key for your project. Checkout [official documentation]
 
-image: /images/blog/2023/1/Untitled%2012.png
+image: /images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2012.png
 
 head:
   meta:
     - name: "keywords"
       content: "github, git, hostinger, ssh, ssh-keys, keygen, public key authentication, github repository"
     - name: "og:image"
-      content: /images/blog/2023/1/Untitled%2012.png
+      content: /images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2012.png
     - name: "twitter:image"
-      content: /images/blog/2023/1/Untitled%2010.png
+      content: /images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2010.png
     - name: "robots"
       content: "index, follow"
     - name: "author"
@@ -54,18 +54,18 @@ Project: samaddar.in Rahul Samaddar web project
 
         `git config --global core.sshCommand "'C:\Windows\System32\OpenSSH\ssh.exe'”`
 
-     ![Untitled](/images/blog/2023/1/Untitled.png)
+     ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled.png)
 
    ```bash
    ssh-keygen -t ed25519 -C "You can write your email id or project title here or your pc name"
    ```
 
-   ![Untitled](/images/blog/2023/1/Untitled%201.png)
+   ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%201.png)
 
 4. Give this key a name, preferably your repository name to easy distinguish between different keys. Save this under ~/.ssh folder. Give full path when saving key
 5. You should `protect your key with a passphrase`
 
-   ![Untitled](/images/blog/2023/1/Untitled%202.png)
+   ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%202.png)
 
 6. Check your existing keys
 
@@ -77,21 +77,21 @@ Project: samaddar.in Rahul Samaddar web project
 
    1. Add this key to you git hub main account. So you manage all your repositories/projects using a single SSH key
 
-      ![Untitled](/images/blog/2023/1/Untitled%203.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%203.png)
 
-      ![Untitled](/images/blog/2023/1/Untitled%204.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%204.png)
 
-      ![Untitled](/images/blog/2023/1/Untitled%205.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%205.png)
 
    2. Or **Deploy keys**. Add this key to you git hub project repository. This is a good approach as if anyone want to work in this project you just have to add a new key of his computer or share your own key so he can get access to this repository only. _You can launch projects from a repository on [GitHub.com](http://github.com/) to your server by using a deploy key, which is an SSH key that grants access to a single repository._
 
-      ![Untitled](/images/blog/2023/1/Untitled%206.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%206.png)
 
-      ![Untitled](/images/blog/2023/1/Untitled%207.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%207.png)
 
-      ![Untitled](/images/blog/2023/1/Untitled%208.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%208.png)
 
-      ![Allow write access to push to this repository default will be read-only](/images/blog/2023/1/Untitled%209.png)
+      ![Allow write access to push to this repository default will be read-only](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%209.png)
 
       Allow write access to push to this repository default will be read-only
 
@@ -101,7 +101,7 @@ Project: samaddar.in Rahul Samaddar web project
    clip < ~/.ssh/you-public-key-name.pub
    ```
 
-   ![Untitled](/images/blog/2023/1/Untitled%2010.png)
+   ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2010.png)
 
 9. After adding your Public key to github, `load you private key` in git bash to start a SSH keygen agent:
 
@@ -140,13 +140,13 @@ Project: samaddar.in Rahul Samaddar web project
          icacls id_rsa /inheritance:r /grant "<username>:(R)"
          ```
 
-      ![Untitled](/images/blog/2023/1/Untitled%2011.png)
+      ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2011.png)
 
 ## Clone your repository and start working on your project
 
 1. From your GitHub account repository, copy repository address
 
-   ![Untitled](/images/blog/2023/1/Untitled%2012.png)
+   ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2012.png)
 
 2. Issue clone command
 
@@ -154,4 +154,4 @@ Project: samaddar.in Rahul Samaddar web project
    **git clone** [git@github.com](mailto:git@github.com):piyushfgk/samaddar.in.git
    ```
 
-   ![Untitled](/images/blog/2023/1/Untitled%2013.png)
+   ![Untitled](/images/blog/2023/12/05/github-ssh-and-managing-project-repositories/Untitled%2013.png)
