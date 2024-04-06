@@ -1,4 +1,6 @@
 ---
+published_at: 2023-12-05 17:04:05
+
 title: Upload project using Github and automatic project update
 
 description: 1. Go to you windows system, and install Git if not installed [Download from here](https://git-scm.com/downloads). 2. You have created private repository, so you must have to generate SSH keys and add it to your github account/repository. 3. Open Git Bash and Generate a SSH key for your project. Checkout [official documentation]

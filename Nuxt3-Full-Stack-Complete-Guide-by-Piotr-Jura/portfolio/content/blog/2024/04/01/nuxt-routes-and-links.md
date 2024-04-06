@@ -1,4 +1,5 @@
 ---
+published_at: 2024-04-01 04:04:05
 title: "Pages and Routing"
 description: "Create pages directory for automatic routes."
 head:

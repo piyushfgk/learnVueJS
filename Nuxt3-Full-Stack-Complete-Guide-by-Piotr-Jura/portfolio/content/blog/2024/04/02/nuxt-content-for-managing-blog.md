@@ -1,3 +1,7 @@
+---
+published_at: 2024-04-02 13:04:05
+---
+
 ### Nuxt Content
 
 - Nuxt Content reads the `content/` directory in your project, parses `.md, .yml, .csv` and `.json` files to create a powerful data layer for your application. Use Vue components in Markdown with the MDC syntax.. [Read more..](https://content.nuxt.com/get-started/installation)
