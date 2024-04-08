@@ -36,17 +36,49 @@ const posts = computed(() => {
   const result = [];
 
   for (const post of data.value) {
-    const year = new Date(post.published_at).getFullYear();
-    const month = new Date(post.published_at).getMonth();
-    const day = new Date(post.published_at).getDate();
-    const hour = new Date(post.published_at).getHours();
-    const minute = new Date(post.published_at).getMinutes();
-
-    post.published_at = `${day}-${month}-${year} ${hour}:${minute}`;
+    post.published_at = convertDateTime(post.published_at);
 
     result.push(post);
   }
 
   return result;
 });
+
+// convert datetime string to day, month, year, hour and minute format where month will be in 3 character calendar string. The date must be in format dd MM yyyy hh:mm
+function convertDateTime(dateTimeString) {
+  // Check if valid ISO 8601 format (example: 2024-04-02T13:04:05.000Z)
+  const iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
+  if (!iso8601Regex.test(dateTimeString)) {
+    throw new Error(
+      "Invalid datetime string format. Must be YYYY-MM-DDTHH:mm:ss.sssZ"
+    );
+  }
+
+  // Extract date and time parts
+  const datePart = dateTimeString.substring(0, 10);
+  const timePart = dateTimeString.slice(11, 16);
+
+  // Split date part
+  const [year, month, day] = datePart.split("-");
+
+  // Convert month to three-letter string
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const monthString = monthNames[parseInt(month) - 1];
+
+  // Return the formatted string
+  return `${day} ${monthString} ${year} ${timePart} Hrs.`;
+}
 </script>
