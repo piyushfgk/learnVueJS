@@ -46,23 +46,12 @@ const posts = computed(() => {
 
 // convert datetime string to day, month, year, hour and minute format where month will be in 3 character calendar string. The date must be in format dd MM yyyy hh:mm
 function convertDateTime(dateTimeString) {
-  // Check if valid ISO 8601 format (example: 2024-04-02T13:04:05.000Z)
-  const iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
-  if (!iso8601Regex.test(dateTimeString)) {
-    throw new Error(
-      "Invalid datetime string format. Must be YYYY-MM-DDTHH:mm:ss.sssZ"
-    );
-  }
+  // Create a Date object from the string
+  const date = new Date(dateTimeString);
 
-  // Extract date and time parts
-  const datePart = dateTimeString.substring(0, 10);
-  const timePart = dateTimeString.slice(11, 16);
-
-  // Split date part
-  const [year, month, day] = datePart.split("-");
-
-  // Convert month to three-letter string
-  const monthNames = [
+  // Get day, month (0-indexed, so add 1), year, hour, and minute
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = [
     "Jan",
     "Feb",
     "Mar",
@@ -75,10 +64,12 @@ function convertDateTime(dateTimeString) {
     "Oct",
     "Nov",
     "Dec",
-  ];
-  const monthString = monthNames[parseInt(month) - 1];
+  ][date.getMonth()];
+  const year = date.getFullYear();
+  const hour = date.getHours().toString().padStart(2, "0");
+  const minute = date.getMinutes().toString().padStart(2, "0");
 
   // Return the formatted string
-  return `${day} ${monthString} ${year} ${timePart} Hrs.`;
+  return `${day} ${month} ${year} ${hour}:${minute}`;
 }
 </script>
