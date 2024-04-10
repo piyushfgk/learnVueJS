@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "vue": "^2.7.15"
+  },
+  "devDependencies": {
+    "@nuxt/content": "^2.12.1",
+    "@nuxtjs/color-mode": "^3.3.3",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@tailwindcss/typography": "^0.5.12"
   }
 }
