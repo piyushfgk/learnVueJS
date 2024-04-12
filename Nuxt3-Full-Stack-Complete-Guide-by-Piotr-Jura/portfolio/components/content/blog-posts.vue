@@ -1,24 +1,30 @@
 <template>
-  <section class="not-prose font-mono">
-    <ul>
-      <li
-        v-for="post in posts"
-        :key="post._path"
-        class="flex items-center space-x-8 border-b border-gray-200 p-2 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-      >
-        <div class="basis-1/4">
-          <img :src="post.image" alt="No image found" />
-        </div>
-        <div class="basis-3/4">
-          <NuxtLink :to="post._path" class="text-lg">{{ post.title }}</NuxtLink>
-          <p class="text-xs mt-1 text-gray-500 dark:text-gray-700">
-            {{ post.published_at }}
-          </p>
-          <p class="text-xs mt-1">{{ post.description }}</p>
-        </div>
-      </li>
-    </ul>
-  </section>
+  <div>
+    <slot :posts="posts">
+      <section class="not-prose font-mono">
+        <ul>
+          <li
+            v-for="post in posts"
+            :key="post._path"
+            class="flex items-center space-x-8 border-b border-gray-200 p-2 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <div class="basis-1/4">
+              <img :src="post.image" alt="No image found" />
+            </div>
+            <div class="basis-3/4">
+              <NuxtLink :to="post._path" class="text-lg">{{
+                post.title
+              }}</NuxtLink>
+              <p class="text-xs mt-1 text-gray-500 dark:text-gray-700">
+                {{ post.published_at }}
+              </p>
+              <p class="text-xs mt-1">{{ post.description }}</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </slot>
+  </div>
 </template>
 
 <script setup>
