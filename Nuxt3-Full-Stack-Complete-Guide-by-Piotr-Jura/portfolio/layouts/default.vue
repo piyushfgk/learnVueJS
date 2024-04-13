@@ -1,9 +1,9 @@
 <template>
   <div class="container mx-auto max-w-4xl">
     <div class="flex flex-col h-screen justify-between">
-      <header class="h-10 flex justify-between items-center p-2">
-        <div class="flex items-center space-x-8">
-          <div>
+      <header class="flex justify-between items-start md:items-center p-2">
+        <div class="flex items-center md:space-x-8">
+          <div class="hidden md:block">
             <NuxtLink
               to="/"
               class="text-xl font-semibold py-2 hover:bg-gray-200 dark:hover:bg-gray-800"
