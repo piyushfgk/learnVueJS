@@ -28,13 +28,24 @@
 </template>
 
 <script setup>
-const { data } = await useAsyncData(() =>
-  queryContent("blog")
+const props = defineProps({
+  limit: {
+    type: Number,
+    default: null,
+  },
+});
+const { data } = await useAsyncData(() => {
+  const query = queryContent("blog")
     .where({ _path: { $ne: "/blog" } })
     .only(["published_at", "title", "description", "_path", "image"])
-    .sort({ published_at: -1 })
-    .find()
-);
+    .sort({ published_at: -1 });
+
+  if (props.limit) {
+    query.limit(props.limit);
+  }
+
+  return query.find();
+});
 
 const posts = computed(() => {
   if (!data.value) return [];
