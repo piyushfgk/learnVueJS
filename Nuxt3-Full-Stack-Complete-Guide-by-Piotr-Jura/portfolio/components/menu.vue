@@ -9,6 +9,6 @@
 
 <style scoped>
 ul > li {
-  @apply p-1 hover:bg-gray-200;
+  @apply p-1 hover:bg-gray-200 dark:hover:bg-gray-800;
 }
 </style>
